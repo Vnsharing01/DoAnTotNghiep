@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 
 import 'screen/campsite_details/campsite_detail_screen.dart';
 import 'screen/campsite_list/campsite_list_screen.dart';
+import 'screen/default_manager/df_mng_screen.dart';
 import 'screen/login/login_screen.dart';
+import 'screen/manager_campsite/manager_camp_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: HomeScreen(),
+      home: MngCampScreen(),
     );
   }
 }

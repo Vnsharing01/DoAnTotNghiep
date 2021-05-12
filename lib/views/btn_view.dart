@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 
-class BtnItemView extends StatelessWidget {
-  /// custom button widget
-  const BtnItemView({
-    Key key,
-    @required this.press,
-    @required this.text,
-    this.color,
-    this.margin,
-  }) : super(key: key);
+class BtnView extends StatelessWidget {
   final Function press;
   final String text;
   final Color color;
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry  margin;
+
+  const BtnView({
+    Key key,
+    @required this.press,
+    @required this.text,
+    this.color, 
+    this.margin,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
       child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 15),
         margin: margin,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(5),

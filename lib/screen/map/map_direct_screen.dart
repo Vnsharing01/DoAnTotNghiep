@@ -29,7 +29,7 @@ final CameraPosition _myLocation = CameraPosition(
 class _MapDirectScreenState extends State<MapDirectScreen> {
   static double latitude = 21.023778;
   static double longitude = 105.8273576;
-  String googleApiKey = "AIzaSyCaYPleO-gCUZ-cqi0lrxR4RsIoocK4DuA";
+  String googleApiKey = 'AIzaSyCaYPleO-gCUZ-cqi0lrxR4RsIoocK4DuA';
 
   List<Marker> markers = [];
   bool searching = true;
@@ -95,6 +95,17 @@ class _MapDirectScreenState extends State<MapDirectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Image.asset('assets/icons/ic_back_black.png'),
+        ),
+        title: Text('Chỉ đường'),
+        centerTitle: true,
+      ),
       body: GoogleMap(
         initialCameraPosition: _myLocation,
         mapType: MapType.normal,
