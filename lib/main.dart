@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'screen/campsite_details/campsite_detail_screen.dart';
 import 'screen/campsite_list/campsite_list_screen.dart';
-import 'screen/default_manager/df_mng_screen.dart';
+import 'screen/manager_default/mng_df_screen.dart';
 import 'screen/login/login_screen.dart';
 import 'screen/manager_campsite/manager_camp_screen.dart';
 

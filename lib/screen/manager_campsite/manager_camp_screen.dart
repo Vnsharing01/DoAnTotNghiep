@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yuru_camp/screen/default_manager/df_mng_screen.dart';
+import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
 
 class MngCampScreen extends StatelessWidget {
   @override
