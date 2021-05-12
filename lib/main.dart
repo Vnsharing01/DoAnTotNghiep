@@ -1,4 +1,4 @@
-import 'package:yuru_camp/screen/abc.dart';
+
 import 'package:yuru_camp/screen/history/history_screen.dart';
 import 'package:yuru_camp/screen/home/home_screen.dart';
 import 'package:yuru_camp/screen/map/map_direct_screen.dart';

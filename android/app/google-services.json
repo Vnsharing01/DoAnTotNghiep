@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "615603529701",
+    "project_id": "campingshop-fa718",
+    "storage_bucket": "campingshop-fa718.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615603529701:android:e980aacf0080162d9cb10c",
+        "android_client_info": {
+          "package_name": "com.example.do_an_tot_nghiep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615603529701-058crlqfseg91qh8idtumb670t7slt66.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.do_an_tot_nghiep",
+            "certificate_hash": "12eb6a965e58d214a04fe5f1317b9572db9c9b0f"
+          }
+        },
+        {
+          "client_id": "615603529701-92e2msmq7es0plispn5pvvd3eubulius.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD71-RwUcHMHkRIbQ_AJuie-AsSFgWadmI"
+        },
+        {
+          "current_key": "AIzaSyBI6k6tGyJPzoY9PCurKneLEGIsHmmE1V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615603529701-92e2msmq7es0plispn5pvvd3eubulius.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615603529701:android:c5579bf6cd40afb69cb10c",
+        "android_client_info": {
+          "package_name": "com.example.yuru_camp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615603529701-92e2msmq7es0plispn5pvvd3eubulius.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD71-RwUcHMHkRIbQ_AJuie-AsSFgWadmI"
+        },
+        {
+          "current_key": "AIzaSyBI6k6tGyJPzoY9PCurKneLEGIsHmmE1V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615603529701-92e2msmq7es0plispn5pvvd3eubulius.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
