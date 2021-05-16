@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/screen/manager_add_campsite/mng_add_camp_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_item_view.dart';
 
@@ -7,16 +8,17 @@ class DfMngCampScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 100),
+        height: double.infinity,
         alignment: Alignment.center,
         color: colorMediumGray,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
               image: AssetImage('assets/images/logo.png'),
-              width: 150,
-              height: 150,
+              width: 136,
+              height: 136,
             ),
             Text(
               'Tạo khu cắm trại của bạn trên \nYuru Camp',
@@ -24,7 +26,13 @@ class DfMngCampScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             BtnItemView(
-              press: () {},
+              press: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MngAddCampScreen(),
+                  ),
+                );
+              },
               text: 'Thêm khu cắm trại',
               color: colorPrimary,
               margin: EdgeInsets.symmetric(vertical: 10),

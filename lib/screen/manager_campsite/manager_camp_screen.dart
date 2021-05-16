@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
+import 'package:yuru_camp/styles/color.dart';
 
 class MngCampScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorPrimary,
         leading: FlatButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -18,7 +19,7 @@ class MngCampScreen extends StatelessWidget {
         children: [
           Container(
             color: Colors.white,
-            height: 70,
+            height: 64,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
@@ -32,7 +33,7 @@ class MngCampScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    'Chiriki Higo',
+                    'abc@gmail.com',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,

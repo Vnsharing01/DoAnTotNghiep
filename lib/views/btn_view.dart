@@ -25,6 +25,7 @@ class BtnView extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(5),
         ),
+        alignment: Alignment.center,
         child: Text(
           text,
           style: TextStyle(

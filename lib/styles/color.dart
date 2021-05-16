@@ -4,6 +4,7 @@ Color colorPrimary = Color(0xFFFF9800);
 Color colorLightGray = Color(0xFFECECEC);
 Color colorDarkGray = Color(0xffAFAFAF);
 Color colorMediumGray = Color(0xffEFEFEF);
+Color colorWhite = Color(0xffFFFFFF);
 
 //----------------text-----------------//
 Color colorTv0 = Color(0xff000000);
