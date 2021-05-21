@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
@@ -20,6 +23,9 @@ final webController = TextEditingController();
 
 final introController = TextEditingController();
 final serviceController = TextEditingController();
+
+File _image1, _image2, _image3, _image4;
+final picker = ImagePicker();
 
 class _MngAddCampScreenState extends State<MngAddCampScreen> {
   @override
@@ -71,7 +77,6 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
                 hint: 'ABC Camp',
                 controller: webController,
               ),
-              
               EdtInfoItemView(
                 title: 'Giới thiệu',
                 controller: introController,
@@ -88,15 +93,23 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ImageItemView(),
-                      ImageItemView(),
+                      ImageItemView(
+                        image: _image1,
+                      ),
+                      ImageItemView(
+                        image: _image2,
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ImageItemView(),
-                      ImageItemView(),
+                      ImageItemView(
+                        image: _image3,
+                      ),
+                      ImageItemView(
+                        image: _image4,
+                      ),
                     ],
                   ),
                 ],

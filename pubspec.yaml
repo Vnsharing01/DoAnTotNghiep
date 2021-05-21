@@ -38,6 +38,7 @@ dependencies:
   flutter_polyline_points: ^0.1.0
   http:
   fluttertoast:
+  image_picker:
   
   #firebase
   firebase_core:

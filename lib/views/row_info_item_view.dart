@@ -2,6 +2,7 @@ import 'package:yuru_camp/styles/color.dart';
 import 'package:flutter/material.dart';
 
 class RowInfoItemView extends StatelessWidget {
+  /// tạo hàng cho bảng thống kê
   const RowInfoItemView({
     Key key,
     this.title,
