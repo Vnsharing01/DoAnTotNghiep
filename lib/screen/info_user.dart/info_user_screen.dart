@@ -49,7 +49,7 @@ class InfoUserScreen extends StatelessWidget {
                           child: Text(
                             'Chiriki Higo',
                             style: TextStyle(
-                              color: colorTv1,
+                              color: colorTvWhite,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),

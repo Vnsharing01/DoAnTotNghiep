@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
+import 'package:yuru_camp/screen/manager_your_campsite/mng_your_camp_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 
 class MngCampScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class MngCampScreen extends StatelessWidget {
           child: Image.asset('assets/icons/ic_back_black.png'),
         ),
       ),
-      body:DfMngCampScreen(),
+      body:MngYourCampScreen(),
     );
   }
 }

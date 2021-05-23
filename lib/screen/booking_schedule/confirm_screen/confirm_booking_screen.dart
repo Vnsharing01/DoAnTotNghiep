@@ -47,7 +47,7 @@ class ConfirmBookingScreen extends StatelessWidget {
                     text: email,
                   ),
                   RowInfoItemView(
-                    title: 'Name',
+                    title: 'Tên',
                     text: name,
                   ),
                   RowInfoItemView(
@@ -106,12 +106,7 @@ class ConfirmBookingScreen extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         CampsiteDetailScreen(),
-                                  //   ),
-                                  // );
+                                  Navigator.of(context).pop(true);
                                   Fluttertoast.showToast(
                                     msg: 'Đặt lịch thành công',
                                     toastLength: Toast.LENGTH_SHORT,

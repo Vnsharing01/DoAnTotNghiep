@@ -62,7 +62,7 @@ class CampListItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-      margin: EdgeInsets.only(bottom: 20,left: 10,right: 10),
+      margin: EdgeInsets.only(bottom: 20, left: 10, right: 10),
       height: 133,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +105,10 @@ class CampListItemView extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: ' vnd/ng',
-                            style: TextStyle(color: colorTv2, fontSize: 14),
+                            style: TextStyle(
+                              color: colorTvMain,
+                              fontSize: 14,
+                            ),
                           ),
                         ],
                         style: TextStyle(
