@@ -8,13 +8,9 @@ class MngCampScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorPrimary,
-        leading: FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Image.asset('assets/icons/ic_back_black.png'),
-        ),
+        backgroundColor: colorWhite,
+        title: Text(''),
+        leading: Container(),
       ),
       body:MngYourCampScreen(),
     );

@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 
 import 'view/date_time_edt_item_view.dart';
-import 'view/edt_item_view.dart';
+import 'view/edt_book_item_view.dart';
 import 'view/radio_item_view.dart';
 
 /// màn hình đặt lịch
@@ -119,12 +119,12 @@ class _BookingScreenState extends State<BookingScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            EdtItemView(
+            EdtBookItemView(
               title: 'Email',
               hint: 'Email',
               controller: _emailController,
             ),
-            EdtItemView(
+            EdtBookItemView(
               title: 'Name',
               hint: 'UserName',
               controller: _nameController,
@@ -156,7 +156,7 @@ class _BookingScreenState extends State<BookingScreen> {
               children: [
                 Expanded(
                   flex: 3,
-                  child: EdtItemView(
+                  child: EdtBookItemView(
                     title: 'Số người',
                     hint: '5',
                     controller: _personController,
@@ -166,7 +166,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 Expanded(flex: 3, child: Container()),
                 Expanded(
                   flex: 3,
-                  child: EdtItemView(
+                  child: EdtBookItemView(
                     title: 'Số trẻ em',
                     hint: '5',
                     controller: _chilController,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EdtItemView extends StatelessWidget {
-  const EdtItemView({
+class EdtBookItemView extends StatelessWidget {
+  const EdtBookItemView({
     Key key,
     @required this.title,
     this.hint,

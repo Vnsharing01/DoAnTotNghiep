@@ -4,14 +4,16 @@ class BtnView extends StatelessWidget {
   final Function press;
   final String text;
   final Color color;
+  final Color textColor;
   final EdgeInsetsGeometry  margin;
 
+  /// btn tràn độ dàn màn hình
   const BtnView({
     Key key,
     @required this.press,
     @required this.text,
     this.color, 
-    this.margin,
+    this.margin, this.textColor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class BtnView extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.white,
+            color: textColor ?? Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),

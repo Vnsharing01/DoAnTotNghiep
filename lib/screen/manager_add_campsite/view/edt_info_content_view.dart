@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/styles/color.dart';
 
-class EdtInfoItemView extends StatefulWidget {
+class EdtInfoContentView extends StatefulWidget {
   /// nhập thông tin giới thiệu và dịch vụ khu cắm trại
-  const EdtInfoItemView({
+  const EdtInfoContentView({
     Key key,
     @required this.title,
     @required this.controller,
@@ -14,10 +14,10 @@ class EdtInfoItemView extends StatefulWidget {
   final TextInputAction inputAction;
 
   @override
-  _EdtInfoItemViewState createState() => _EdtInfoItemViewState();
+  _EdtInfoContentViewState createState() => _EdtInfoContentViewState();
 }
 
-class _EdtInfoItemViewState extends State<EdtInfoItemView> {
+class _EdtInfoContentViewState extends State<EdtInfoContentView> {
   @override
   Widget build(BuildContext context) {
     return Container(

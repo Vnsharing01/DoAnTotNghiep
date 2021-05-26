@@ -1,43 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/styles/color.dart';
 
-class FtfInfoItemView extends StatelessWidget {
-  const FtfInfoItemView({
+class UserInfoItemView extends StatelessWidget {
+  const UserInfoItemView({
     Key key,
     this.title,
-    this.controller,
+    this.textInfo,
   }) : super(key: key);
 
   final String title;
-  final TextEditingController controller;
+  final String textInfo;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             flex: 3,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                title,
-                style: TextStyle(fontSize: 14),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                color: colorTvBlack,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
           Expanded(
             flex: 7,
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Thiết lập ngay',
-                
-                contentPadding: EdgeInsets.all(14),
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-              ),
+            child: Text(
+              textInfo ?? 'Thiết lập ngay',
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 14),
             ),
           ),
         ],

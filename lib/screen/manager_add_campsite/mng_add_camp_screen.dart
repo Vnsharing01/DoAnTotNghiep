@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
-import 'view/edt_info_item_view.dart';
+import 'view/edt_info_content_view.dart';
 import 'view/image_item_view.dart';
 import 'view/item_info_view.dart';
 
@@ -77,7 +77,7 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
                 hint: 'ABC Camp',
                 controller: webController,
               ),
-              EdtInfoItemView(
+              EdtInfoContentView(
                 title: 'Giới thiệu',
                 controller: introController,
                 inputAction: TextInputAction.next,
@@ -114,7 +114,7 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
                   ),
                 ],
               ),
-              EdtInfoItemView(
+              EdtInfoContentView(
                 title: 'Dịch vụ',
                 controller: serviceController,
                 inputAction: TextInputAction.done,

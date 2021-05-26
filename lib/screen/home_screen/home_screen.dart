@@ -89,7 +89,6 @@ class HomeScreen extends StatelessWidget {
                               height: double.infinity,
                             ),
                             borderRadius: BorderRadius.circular(8),
-
                           ),
                         ),
                         Expanded(
@@ -207,27 +206,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: _iconTab('assets/icons/home.png'),
-            label: 'trang chủ',
-          ),
-          BottomNavigationBarItem(
-            icon: _iconTab('assets/icons/tent.png'),
-            label: 'campsite',
-          ),
-          BottomNavigationBarItem(
-            icon: _iconTab('assets/icons/user.png'),
-            label: 'tôi',
-          ),
-        ],
-      ),
     );
-  }
-
-  Image _iconTab(String image) {
-    return Image(image: AssetImage(image), width: 18, height: 18);
   }
 
   AppBar buildAppBar() {

@@ -6,6 +6,7 @@ import 'package:yuru_camp/views/btn_view.dart';
 
 import 'Content_info_item_view.dart';
 
+  /// màn hình khi có khu cắm trại 
 class MngYourCampScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -214,18 +215,38 @@ class MngYourCampScreen extends StatelessWidget {
               contentText:
                   'sdfghjkasdfghjksdfghjklasdfghjkasdfghjkqwerqwsdfvbnweugdcbhnawidahjnowaisbjklciub',
             ),
-            BtnView(
-              press: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (contexxt) => EditCampInfo(),
+            Container(
+              margin: EdgeInsets.all(18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: BtnView(
+                      press: () {
+                        
+                      },
+                      text: 'xóa khu cắm trại',
+                      color: colorDarkGray,
+                      textColor: colorTvBlack,
+                    ),
                   ),
-                );
-              },
-              text: 'Chỉnh sửa nội dung',
-              color: colorPrimary,
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-            ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: BtnView(
+                      press: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (contexxt) => EditCampInfo(),
+                          ),
+                        );
+                      },
+                      text: 'Chỉnh sửa nội dung',
+                      color: colorPrimary,
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

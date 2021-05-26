@@ -1,7 +1,8 @@
-import 'package:yuru_camp/screen/home/home_screen.dart';
+import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:yuru_camp/screen/navigation.dart';
 
 class LoginApiClient {
   /// login with email-password
@@ -18,7 +19,7 @@ class LoginApiClient {
       );
       User user = userCredential.user;
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+          .push(MaterialPageRoute(builder: (context) => NavigationView()));
       print('login successfuly $user');
       return user;
     } on FirebaseAuthException catch (e) {
@@ -55,7 +56,7 @@ class LoginApiClient {
       debugPrint('googleSignIn ${user.displayName}');
 
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => NavigationView()),
       );
     }
   }

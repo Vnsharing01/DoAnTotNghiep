@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/styles/color.dart';
 
-class InfoAddressView extends StatefulWidget {
-  /// thông tin cơ bản của khu cắm trại
-  const InfoAddressView({
+class EdtInfoView extends StatefulWidget {
+  /// thông tin cơ bản của khu cắm trại , user
+  const EdtInfoView({
     Key key,
     @required this.title,
     @required this.controller,
@@ -13,10 +13,10 @@ class InfoAddressView extends StatefulWidget {
   final TextEditingController controller;
 
   @override
-  _InfoAddressViewState createState() => _InfoAddressViewState();
+  _EdtInfoViewState createState() => _EdtInfoViewState();
 }
 
-class _InfoAddressViewState extends State<InfoAddressView> {
+class _EdtInfoViewState extends State<EdtInfoView> {
   @override
   Widget build(BuildContext context) {
     return Padding(

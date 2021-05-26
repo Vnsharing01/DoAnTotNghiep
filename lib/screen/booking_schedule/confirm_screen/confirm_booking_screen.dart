@@ -4,7 +4,7 @@ import 'package:yuru_camp/views/row_info_item_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
+  /// màn hình xác nhận đặt lịch cắm trại , dã ngoại
 class ConfirmBookingScreen extends StatelessWidget {
   const ConfirmBookingScreen({
     Key key,
@@ -111,6 +111,12 @@ class ConfirmBookingScreen extends StatelessWidget {
                                     msg: 'Đặt lịch thành công',
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
+                                  );
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CampsiteDetailScreen(),
+                                    ),
                                   );
                                 },
                                 child: Text('Xác Nhận'),

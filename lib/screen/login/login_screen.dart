@@ -1,4 +1,4 @@
-import 'package:yuru_camp/screen/home/home_screen.dart';
+import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:yuru_camp/screen/login/login_api_client.dart';
 import 'package:yuru_camp/screen/singup/singup_screen.dart';
 import 'package:yuru_camp/screen/login/view/login_text_feild_view.dart';
@@ -71,13 +71,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: Icon(Icons.lock_outline),
                           typePassword: false,
                         ),
-                        LoginTextView(
-                          text: 'Quên mật khẩu?',
-                          color: Colors.red,
-                          align: TextAlign.right,
-                          press: () {},
-                        ),
-                        Container( // btn login
+                        Container(
+                          // btn login
                           child: FlatButton(
                             onPressed: () {
                               _apiClient.loginUser(
@@ -102,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.green,
                           ),
                         ),
-                        Container( // divider
+                        Container(
+                          // divider
                           margin: EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             children: [
@@ -112,7 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                        Container( // login with google 
+                        Container(
+                          // login with google
                           margin: EdgeInsets.all(20),
                           child: TextButton.icon(
                             onPressed: () {
