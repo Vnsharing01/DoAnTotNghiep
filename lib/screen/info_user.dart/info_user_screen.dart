@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yuru_camp/screen/change_password/change_password_screen.dart';
+import 'package:yuru_camp/screen/reset_request_password/reset_request_password_screen.dart';
 import 'package:yuru_camp/screen/edit_info_user/edt_info_user_screen.dart';
 import 'package:yuru_camp/screen/login/login_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
@@ -22,11 +22,6 @@ class InfoUserScreen extends StatelessWidget {
           PopupMenuButton<int>(
             onSelected: (item) => _onSelected(context, item),
             itemBuilder: (context) => [
-              PopupMenuItem<int>(
-                value: 0,
-                child: Text('Đổi Mật Khẩu'),
-              ),
-              PopupMenuDivider(),
               PopupMenuItem<int>(
                 value: 1,
                 child: Text('Đăng Xuất'),
@@ -127,19 +122,13 @@ class InfoUserScreen extends StatelessWidget {
   _onSelected(BuildContext context, item) {
     switch (item) {
       case 0:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ChangePasswordScreen(),
-          ),
-        );
-        break;
-      case 1:
-        Navigator.of(context).pushAndRemoveUntil(
+         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => LoginScreen(),
             ),
             (route) => false);
         break;
+
     }
   }
 }

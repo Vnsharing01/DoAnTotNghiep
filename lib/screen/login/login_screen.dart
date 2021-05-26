@@ -1,5 +1,7 @@
+import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:yuru_camp/screen/login/login_api_client.dart';
+import 'package:yuru_camp/screen/login/login_presenter.dart';
 import 'package:yuru_camp/screen/singup/singup_screen.dart';
 import 'package:yuru_camp/screen/login/view/login_text_feild_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,12 +16,15 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  // controller
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> implements Contract {
+  LoginPresenter _presenter;
 
-  final LoginApiClient _apiClient = LoginApiClient();
+  @override
+  void initState() {
+    _presenter = LoginPresenter(context, this);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 0,
       ),
       body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
+        onTap:_presenter.hideKeyBoard,
         child: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -61,26 +64,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         TextFeildView(
-                          controller: _emailController,
+                          controller: _presenter.emailController,
                           hintText: 'Email',
                           icon: Icon(Icons.person_outline),
                         ),
                         TextFeildView(
-                          controller: _passwordController,
+                          controller: _presenter.passwordController,
                           hintText: 'Password',
                           icon: Icon(Icons.lock_outline),
                           typePassword: false,
                         ),
+                        LoginTextView(
+                          text: 'Quên mật khẩu?',
+                          color: Colors.red,
+                          align: TextAlign.right,
+                          press: _presenter.nextResetPass,
+                        ),
                         Container(
                           // btn login
                           child: FlatButton(
-                            onPressed: () {
-                              _apiClient.loginUser(
-                                context: context,
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                              );
-                            },
+                            onPressed: _presenter.login(
+                              email: _presenter.emailController.text,
+                              pass: _presenter.passwordController.text,
+                            ),
                             child: Text(
                               'Login',
                               style: TextStyle(
@@ -112,9 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           // login with google
                           margin: EdgeInsets.all(20),
                           child: TextButton.icon(
-                            onPressed: () {
-                              _apiClient.googleSignIn(context);
-                            },
+                            onPressed: _presenter.loginWithGG,
                             icon: Image(
                               image: AssetImage('assets/icons/ic_google.png'),
                               width: 36,
@@ -138,13 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           text: 'Tạo tài khoản mới!',
                           color: Colors.green,
                           align: TextAlign.center,
-                          press: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => SignupScreen(),
-                              ),
-                            );
-                          },
+                          press: _presenter.createAccount,
                         ),
                       ],
                     ),
@@ -156,5 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void updateSate() {
+    
   }
 }
