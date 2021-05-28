@@ -1,13 +1,10 @@
 import 'package:yuru_camp/base/contract.dart';
-import 'package:yuru_camp/screen/home_screen/home_screen.dart';
-import 'package:yuru_camp/screen/login/login_api_client.dart';
+
 import 'package:yuru_camp/screen/login/login_presenter.dart';
-import 'package:yuru_camp/screen/singup/singup_screen.dart';
+
 import 'package:yuru_camp/screen/login/view/login_text_feild_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import 'view/login_text_view.dart';
 
@@ -37,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> implements Contract {
         elevation: 0,
       ),
       body: GestureDetector(
-        onTap:_presenter.hideKeyBoard,
+        onTap: _presenter.hideKeyBoard,
         child: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -157,7 +154,5 @@ class _LoginScreenState extends State<LoginScreen> implements Contract {
   }
 
   @override
-  void updateSate() {
-    
-  }
+  void updateSate() {}
 }

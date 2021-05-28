@@ -1,15 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/screen/reset_request_password/rs_rq_pass_presenter.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
-class RequestPasswordScreen extends StatelessWidget {
+  /// màn hình yêu cầu đặt lại mật khẩu
+class RequestPasswordScreen extends StatefulWidget {
+  @override
+  _RequestPasswordScreenState createState() => _RequestPasswordScreenState();
+}
+
+class _RequestPasswordScreenState extends State<RequestPasswordScreen>
+    implements Contract {
+  RsRqPassPresenter _presenter;
+  final auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    _presenter = RsRqPassPresenter(context, this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorWhite,
         centerTitle: true,
-        title: Text('cấp lại mật khẩu'),
+        title: Text('đặt lại mật khẩu'),
         leading: FlatButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -48,19 +67,21 @@ class RequestPasswordScreen extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: _presenter.emailController,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        filled: true,
-                        fillColor: colorTvWhite),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: colorTvWhite,
+                    ),
                   ),
                 ],
               ),
             ),
             BtnView(
-              press: () {},
+              press: _presenter.send,
               text: 'Gửi yêu cầu',
               color: colorPrimary,
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -70,4 +91,7 @@ class RequestPasswordScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void updateSate() {}
 }

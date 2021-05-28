@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/screen/booking_list/booking_list_screen.dart';
+import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
 import 'package:yuru_camp/screen/manager_edit_camp_info/edit_camp_info_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
 import 'Content_info_item_view.dart';
 
-  /// màn hình khi có khu cắm trại 
+/// màn hình khi có khu cắm trại
 class MngYourCampScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -223,7 +224,12 @@ class MngYourCampScreen extends StatelessWidget {
                   Expanded(
                     child: BtnView(
                       press: () {
-                        
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => DfMngCampScreen(),
+                          ),
+                          (route) => false,
+                        );
                       },
                       text: 'xóa khu cắm trại',
                       color: colorDarkGray,

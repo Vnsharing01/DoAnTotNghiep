@@ -15,7 +15,7 @@ class LoginPresenter extends Presenter {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  /// chuyển màn sang đặt lại mật khẩu
+  /// chuyển sang màn đặt lại mật khẩu
   void nextResetPass() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -24,6 +24,7 @@ class LoginPresenter extends Presenter {
     );
   }
 
+  /// đăng nhập
   login({String email, String pass}) {
     _apiClient.loginUser(
       context: context,
@@ -37,6 +38,7 @@ class LoginPresenter extends Presenter {
     _apiClient.googleSignIn(context);
   }
 
+  /// tạo tài khoản mới
   void createAccount() {
     Navigator.of(context).push(
       MaterialPageRoute(
