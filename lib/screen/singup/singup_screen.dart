@@ -1,4 +1,6 @@
+import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/screen/login/login_screen.dart';
+import 'package:yuru_camp/screen/singup/signup_presenter.dart';
 import 'package:yuru_camp/screen/singup/text_feild_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,33 +10,15 @@ class SignupScreen extends StatefulWidget {
   _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  //EditText controller
-  TextEditingController _mailController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confimController = TextEditingController();
+class _SignupScreenState extends State<SignupScreen> implements Contract{
+  SignupPresenter _presenter;
 
-  Future signUpUser() async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _mailController.text,
-        password: _passwordController.text,
-      );
-      User user = userCredential.user;
-      print('user successfuly $user');
-      return user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
+  @override
+  void initState() {
+    _presenter = SignupPresenter(context, this);
+    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,31 +79,32 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       /// email
                       TextFeildView(
-                        controller: _mailController,
+                        controller: _presenter.mailController,
                         hintText: 'Email',
                         icon: Icon(Icons.mail),
                       ),
 
                       /// user name
                       TextFeildView(
-                        controller: _usernameController,
+                        controller: _presenter.usernameController,
                         hintText: 'Username',
                         icon: Icon(Icons.person),
                       ),
 
                       /// password
                       TextFeildView(
-                        controller: _passwordController,
+                        controller: _presenter.passwordController,
                         hintText: 'Password',
                         icon: Icon(Icons.lock),
+                        typePassword: true,
                       ),
 
-                      /// confirm Cotntrole
-                      TextFeildView(
-                        controller: _confimController,
-                        hintText: 'Confirm Password',
-                        icon: Icon(Icons.shield),
-                      ),
+                      // /// confirm Cotntrole
+                      // TextFeildView(
+                      //   controller: _presenter.confimController,
+                      //   hintText: 'Confirm Password',
+                      //   icon: Icon(Icons.shield),
+                      // ),
                     ],
                   ),
                 ),
@@ -130,9 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextButton(
-                    onPressed: () {
-                      signUpUser();
-                    },
+                    onPressed: _presenter.createAccount,
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       backgroundColor: Colors.green,
@@ -153,5 +136,10 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void updateSate() {
+    // TODO: implement updateSate
   }
 }
