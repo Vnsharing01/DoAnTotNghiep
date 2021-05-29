@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yuru_camp/screen/navigation.dart';
+import 'package:yuru_camp/views/notifi_dialogs_view.dart';
+
 
 class LoginApiClient {
   /// login with email-password
@@ -26,9 +28,12 @@ class LoginApiClient {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
         //thêm dialog thông báo lỗi
+        
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
         //thêm dialog thông báo lỗi
+        
+        
       }
     }
   }

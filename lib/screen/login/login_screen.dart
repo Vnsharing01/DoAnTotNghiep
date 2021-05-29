@@ -1,4 +1,5 @@
 import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/base/validators.dart';
 
 import 'package:yuru_camp/screen/login/login_presenter.dart';
 
@@ -61,15 +62,23 @@ class _LoginScreenState extends State<LoginScreen> implements Contract {
                     child: Column(
                       children: [
                         TextFeildView(
+                          key: _presenter.emailKey,
                           controller: _presenter.emailController,
                           hintText: 'Email',
                           icon: Icon(Icons.person_outline),
+                          validator: Validators.emailValidator,
                         ),
                         TextFeildView(
+                          key: _presenter.passKey,
                           controller: _presenter.passwordController,
                           hintText: 'Password',
                           icon: Icon(Icons.lock_outline),
-                          typePassword: false,
+                          typePassword: _presenter.hidePass,
+                          showPass: IconButton(
+                            icon: _presenter.showPassIcon(),
+                            onPressed: _presenter.showPass,
+                          ),
+                          validator: Validators.passValidator,
                         ),
                         LoginTextView(
                           text: 'Quên mật khẩu?',
@@ -80,10 +89,7 @@ class _LoginScreenState extends State<LoginScreen> implements Contract {
                         Container(
                           // btn login
                           child: FlatButton(
-                            onPressed: _presenter.login(
-                              email: _presenter.emailController.text,
-                              pass: _presenter.passwordController.text,
-                            ),
+                            onPressed: _presenter.login,
                             child: Text(
                               'Login',
                               style: TextStyle(
@@ -154,5 +160,7 @@ class _LoginScreenState extends State<LoginScreen> implements Contract {
   }
 
   @override
-  void updateSate() {}
+  void updateSate() {
+    setState(() {});
+  }
 }
