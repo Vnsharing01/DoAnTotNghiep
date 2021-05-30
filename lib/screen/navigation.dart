@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:yuru_camp/screen/info_user.dart/info_user_screen.dart';
@@ -5,11 +7,15 @@ import 'package:yuru_camp/screen/info_user.dart/info_user_screen.dart';
 import 'manager_campsite/manager_camp_screen.dart';
 
 class NavigationView extends StatefulWidget {
+
   @override
   _NavigationViewState createState() => _NavigationViewState();
 }
 
 class _NavigationViewState extends State<NavigationView> {
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   int _selectIndex = 0;
 
   final _pageOptions = [
@@ -17,6 +23,12 @@ class _NavigationViewState extends State<NavigationView> {
     MngCampScreen(),
     InfoUserScreen(),
   ];
+
+  @override
+  void initState() {
+    inputData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,4 +67,12 @@ class _NavigationViewState extends State<NavigationView> {
       _selectIndex = index;
     });
   }
+
+  void inputData() {
+    final User  user = auth.currentUser;
+    final email = user.email;
+    print(email);
+  }
+
+
 }

@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/base/contract.dart';
 
 import 'package:yuru_camp/screen/edit_info_user/edt_info_user_screen.dart';
+import 'package:yuru_camp/screen/info_user.dart/info_user_presenter.dart';
 import 'package:yuru_camp/screen/login/login_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
@@ -8,7 +12,32 @@ import 'package:yuru_camp/views/btn_view.dart';
 import 'user_info_item_view.dart';
 
 /// thông tin người dùng
-class InfoUserScreen extends StatelessWidget {
+class InfoUserScreen extends StatefulWidget {
+  @override
+  _InfoUserScreenState createState() => _InfoUserScreenState();
+}
+
+class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
+  // InfoUserPresenter _presenter;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  User user;
+
+  // Stream getUserStream =
+  //     FirebaseFirestore.instance.collection('user').doc().snapshots();
+
+  @override
+  void initState() {
+    // _presenter = InfoUserPresenter(context, this);
+    inputData();
+    super.initState();
+  }
+    void inputData() {
+    user = auth.currentUser;
+    final email = user.email;
+    print(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +92,7 @@ class InfoUserScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
-                            'Chiriki Higo',
+                            user.email,
                             style: TextStyle(
                               color: colorTvWhite,
                               fontSize: 16,
@@ -129,5 +158,10 @@ class InfoUserScreen extends StatelessWidget {
             (route) => false);
         break;
     }
+  }
+
+  @override
+  void updateSate() {
+    // TODO: implement updateSate
   }
 }
