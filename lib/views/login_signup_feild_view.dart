@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/styles/color.dart';
 
-class TextFeildView extends StatefulWidget {
-  const TextFeildView({
+class LoginSignupTxtFView extends StatefulWidget {
+  const LoginSignupTxtFView({
     Key key,
     @required this.controller,
     @required this.hintText,
@@ -21,10 +21,10 @@ class TextFeildView extends StatefulWidget {
   final FormFieldValidator<String> validator;
 
   @override
-  _TextFeildViewState createState() => _TextFeildViewState();
+  _LoginSignupTxtFViewState createState() => _LoginSignupTxtFViewState();
 }
 
-class _TextFeildViewState extends State<TextFeildView> {
+class _LoginSignupTxtFViewState extends State<LoginSignupTxtFView> {
   String _msgError;
   final _controller = TextEditingController();
 

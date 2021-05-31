@@ -3,9 +3,8 @@ import 'package:yuru_camp/base/validators.dart';
 
 import 'package:yuru_camp/screen/login/login_presenter.dart';
 
-import 'package:yuru_camp/screen/login/view/login_text_feild_view.dart';
-
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/views/login_signup_feild_view.dart';
 
 import 'view/login_text_view.dart';
 
@@ -61,14 +60,14 @@ class _LoginScreenState extends State<LoginScreen> implements Contract {
                     ),
                     child: Column(
                       children: [
-                        TextFeildView(
+                        LoginSignupTxtFView(
                           key: _presenter.emailKey,
                           controller: _presenter.emailController,
                           hintText: 'Email',
                           icon: Icon(Icons.person_outline),
                           validator: Validators.emailValidator,
                         ),
-                        TextFeildView(
+                        LoginSignupTxtFView(
                           key: _presenter.passKey,
                           controller: _presenter.passwordController,
                           hintText: 'Password',

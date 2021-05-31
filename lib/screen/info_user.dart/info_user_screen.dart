@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
 
 import 'package:yuru_camp/screen/edit_info_user/edt_info_user_screen.dart';
-import 'package:yuru_camp/screen/info_user.dart/info_user_presenter.dart';
+
 import 'package:yuru_camp/screen/login/login_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
@@ -28,11 +28,11 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
 
   @override
   void initState() {
-    // _presenter = InfoUserPresenter(context, this);
     inputData();
     super.initState();
   }
-    void inputData() {
+
+  void inputData() {
     user = auth.currentUser;
     final email = user.email;
     print(email);
@@ -162,6 +162,6 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
 
   @override
   void updateSate() {
-    // TODO: implement updateSate
+    setState(() {});
   }
 }

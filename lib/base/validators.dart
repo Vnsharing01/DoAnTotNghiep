@@ -24,11 +24,4 @@ class Validators {
     return null;
   }
 
-  /// bắt lỗi trường confirm password
-  static String confirmPassValidator(String value) {
-    if (value.isEmpty || value == null) {
-      return 'confirm password không được để trống';
-    }
-    return null;
-  }
 }
