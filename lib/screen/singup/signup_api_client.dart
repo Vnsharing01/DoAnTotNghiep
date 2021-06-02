@@ -30,7 +30,7 @@ class SignUpApiClient {
             'email': email,
             'user_name': name,
             'password': psw,
-            'avatar': '',
+            'avatar': 'assets/images/default_avatar.png',
             'gender': '',
             'birth': '',
             'phone': '',

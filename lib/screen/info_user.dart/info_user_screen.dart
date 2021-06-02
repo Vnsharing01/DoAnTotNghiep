@@ -27,8 +27,7 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
 
   // Stream getUserStream =
   //     FirebaseFirestore.instance.collection('user').doc().snapshots();
-  CollectionReference getUser =
-      FirebaseFirestore.instance.collection('user');
+  CollectionReference getUser = FirebaseFirestore.instance.collection('user');
 
   @override
   void initState() {
@@ -89,19 +88,12 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
                     child: Row(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child:
-                          //  Image.network(
-                          //   user.photoURL,
-                          //   width: 62,
-                          //   height: 62,
-                          // ) ?? 
-                          Image.asset(
-                            'assets/images/default_avatar.png',
-                            width: 62,
-                            height: 62,
-                          ),
-                        ),
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(
+                              user.photoURL,
+                              width: 62,
+                              height: 62,
+                            )),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
