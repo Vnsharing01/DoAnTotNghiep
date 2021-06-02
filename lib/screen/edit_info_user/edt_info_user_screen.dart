@@ -51,6 +51,7 @@ class EdtInfoUserScreen extends StatelessWidget {
             EdtInfoView(
               title: 'Email : ',
               controller: _emailController,
+              enabled: false,
             ),
             EdtInfoView(
               title: 'Giới tính : ',

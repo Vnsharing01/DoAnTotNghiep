@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/model/use_model.dart';
 
 import 'package:yuru_camp/screen/edit_info_user/edt_info_user_screen.dart';
 
@@ -22,20 +23,26 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   User user;
+  UserModel userData;
 
   // Stream getUserStream =
   //     FirebaseFirestore.instance.collection('user').doc().snapshots();
+  CollectionReference getUser =
+      FirebaseFirestore.instance.collection('user');
 
   @override
   void initState() {
     inputData();
+
     super.initState();
   }
 
   void inputData() {
     user = auth.currentUser;
     final email = user.email;
+    getUser.doc(email).get();
     print(email);
+    print(getUser.doc(email).get());
   }
 
   @override
@@ -83,7 +90,13 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
+                          child:
+                          //  Image.network(
+                          //   user.photoURL,
+                          //   width: 62,
+                          //   height: 62,
+                          // ) ?? 
+                          Image.asset(
                             'assets/images/default_avatar.png',
                             width: 62,
                             height: 62,
@@ -110,23 +123,23 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
               children: [
                 UserInfoItemView(
                   title: 'Tên:',
-                  textInfo: 'Chiriki Higo',
+                  textInfo: user.displayName ?? 'cập nhật ngay',
                 ),
                 UserInfoItemView(
                   title: 'Email:',
-                  textInfo: 'Higo@gmail.com',
+                  textInfo: user.email ?? 'cập nhật ngay',
                 ),
                 UserInfoItemView(
                   title: 'Giới tính:',
-                  textInfo: 'nam',
+                  textInfo: null ?? 'cập nhật ngay',
                 ),
                 UserInfoItemView(
                   title: 'Số điện thoại:',
-                  textInfo: '0123456789',
+                  textInfo: null ?? 'cập nhật ngay',
                 ),
                 UserInfoItemView(
                   title: 'Ngày sinh:',
-                  textInfo: '20/05/1999',
+                  textInfo: null ?? 'cập nhật ngay',
                 ),
               ],
             ),
@@ -150,7 +163,7 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
 
   _onSelected(BuildContext context, item) {
     switch (item) {
-      case 0:
+      case 1:
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => LoginScreen(),

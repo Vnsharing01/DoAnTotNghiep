@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yuru_camp/screen/navigation.dart';
 
 class LoginApiClient {
+  /// firestore
+  CollectionReference createUser =
+      FirebaseFirestore.instance.collection('user');
+
   /// login with email-password
   Future loginUser({
     String email,
@@ -43,6 +48,8 @@ class LoginApiClient {
         await _googleSignIn.signIn();
     if (googleSignInAccount == null) {
       final User currentUser = _firebaseAuth.currentUser;
+
+      
       return currentUser;
     } else {
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -57,6 +64,26 @@ class LoginApiClient {
 
       final User user = userCredential.user;
       debugPrint('googleSignIn ${user.displayName}');
+
+      var userData = {
+        'name': user.displayName,
+        'avatar': user.photoURL,
+        'email': user.email,
+        'gender': '',
+        'birth': '',
+        'phone': '',
+        'password': '',
+      };
+
+      
+      createUser.doc(user.email).get().then((doc) {
+        if (doc.exists) {
+          doc.reference.update(userData);
+        } else {
+          // thêm user vào fireStore
+          createUser.doc(user.email).set(userData);
+        }
+      });
 
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => NavigationView()),

@@ -1,9 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
 import 'package:yuru_camp/screen/manager_your_campsite/mng_your_camp_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 
-class MngCampScreen extends StatelessWidget {
+class MngCampScreen extends StatefulWidget {
+  @override
+  _MngCampScreenState createState() => _MngCampScreenState();
+}
+
+class _MngCampScreenState extends State<MngCampScreen> {
+
+  CollectionReference getUser =
+      FirebaseFirestore.instance.collection('manager');
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  User user;
+
+  @override
+  void initState() {
+    inputData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +31,13 @@ class MngCampScreen extends StatelessWidget {
         title: Text(''),
         leading: Container(),
       ),
-      body:MngYourCampScreen(),
+      body: null ?? DfMngCampScreen(),
     );
+  }
+
+  void inputData() {
+    user = auth.currentUser;
+    final email = user.email;
+    print(email);
   }
 }

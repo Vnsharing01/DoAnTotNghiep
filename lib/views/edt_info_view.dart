@@ -7,10 +7,12 @@ class EdtInfoView extends StatefulWidget {
     Key key,
     @required this.title,
     @required this.controller,
+    this.enabled,
   }) : super(key: key);
   final String title;
 
   final TextEditingController controller;
+  final bool enabled;
 
   @override
   _EdtInfoViewState createState() => _EdtInfoViewState();
@@ -24,6 +26,7 @@ class _EdtInfoViewState extends State<EdtInfoView> {
       child: TextFormField(
         controller: widget.controller,
         textInputAction: TextInputAction.next,
+        enabled: widget.enabled ?? true,
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: EdgeInsetsDirectional.only(top: 12, start: 8, end: 8),
