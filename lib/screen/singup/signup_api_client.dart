@@ -30,10 +30,10 @@ class SignUpApiClient {
             'email': email,
             'user_name': name,
             'password': psw,
-            'avatar': 'assets/images/default_avatar.png',
-            'gender': '',
-            'birth': '',
-            'phone': '',
+            'avatar': null,
+            'gender': null,
+            'birth': null,
+            'phone': null,
           })
           .then((value) => print("User Added"))
           .catchError(
