@@ -1,12 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'package:yuru_camp/base/contract.dart';
+
+import 'package:yuru_camp/screen/manager_add_campsite/mng_add_camp_presenter.dart';
+
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
 import 'view/edt_info_content_view.dart';
-import 'view/image_item_view.dart';
 import 'view/item_info_view.dart';
 
 class MngAddCampScreen extends StatefulWidget {
@@ -14,20 +15,17 @@ class MngAddCampScreen extends StatefulWidget {
   _MngAddCampScreenState createState() => _MngAddCampScreenState();
 }
 
-final campNameController = TextEditingController();
-final addressController = TextEditingController();
-final areaController = TextEditingController();
-final hotLineController = TextEditingController();
-final fanPageController = TextEditingController();
-final webController = TextEditingController();
+class _MngAddCampScreenState extends State<MngAddCampScreen>
+    implements Contract {
+  AddCampPresnter _presnter;
 
-final introController = TextEditingController();
-final serviceController = TextEditingController();
+  @override
+  void initState() {
+    _presnter = AddCampPresnter(context, this);
 
-File _image1, _image2, _image3, _image4;
-final picker = ImagePicker();
+    super.initState();
+  }
 
-class _MngAddCampScreenState extends State<MngAddCampScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,35 +49,81 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
               ItemInfoView(
                 title: 'Camp Name : ',
                 hint: 'ABC Camp',
-                controller: campNameController,
+                controller: _presnter.campNameController,
               ),
               ItemInfoView(
                 title: 'Địa chỉ : ',
                 hint: 'ABC Camp',
-                controller: addressController,
+                controller: _presnter.addressController,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ItemInfoView(
+                      title: 'latitude : ',
+                      hint: 'ABC Camp',
+                      controller: _presnter.latitudeController,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: ItemInfoView(
+                      title: 'logitude : ',
+                      hint: 'ABC Camp',
+                      controller: _presnter.longitudeController,
+                    ),
+                  ),
+                ],
               ),
               ItemInfoView(
-                  title: 'Khu vực : ',
-                  hint: 'ABC Camp',
-                  controller: areaController),
+                title: 'Khu vực : ',
+                hint: 'Hà Nội',
+                controller: _presnter.areaController,
+              ),
               ItemInfoView(
                 title: 'Hotline : ',
-                hint: 'ABC Camp',
-                controller: hotLineController,
+                hint: '0123456789',
+                controller: _presnter.hotLineController,
               ),
               ItemInfoView(
                 title: 'Fanpage : ',
-                hint: 'ABC Camp',
-                controller: fanPageController,
+                hint: 'fb/abccamp.com',
+                controller: _presnter.fanPageController,
               ),
               ItemInfoView(
                 title: 'Web : ',
-                hint: 'ABC Camp',
-                controller: webController,
+                hint: 'abccamp.com.vn',
+                controller: _presnter.webController,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      'Giá vé',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  ItemInfoView(
+                    title: 'người lớn : ',
+                    hint: '100000 vnd',
+                    controller: _presnter.personPriceController,
+                  ),
+                  SizedBox(width: 10),
+                  ItemInfoView(
+                    title: 'trẻ em : ',
+                    hint: '50000 vnd',
+                    controller: _presnter.chilPriceController,
+                  ),
+                ],
               ),
               EdtInfoContentView(
                 title: 'Giới thiệu',
-                controller: introController,
+                controller: _presnter.introController,
                 inputAction: TextInputAction.next,
               ),
               Column(
@@ -90,37 +134,59 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
                     'Thêm Ảnh',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ImageItemView(
-                        image: _image1,
-                      ),
-                      ImageItemView(
-                        image: _image2,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ImageItemView(
-                        image: _image3,
-                      ),
-                      ImageItemView(
-                        image: _image4,
-                      ),
-                    ],
-                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 260,
+                    child: GridView.builder(
+                      shrinkWrap: false,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3),
+                      itemCount: _presnter.images.length + 1,
+                      itemBuilder: (context, index) {
+                        return index == 0
+                            ? Container(
+                                width: 60,
+                                margin: EdgeInsets.all(8),
+                                alignment: Alignment.center,
+                                child: IconButton(
+                                  iconSize: 46,
+                                  icon: Icon(Icons.add_a_photo_rounded),
+                                  onPressed: _presnter.images.length + 1 < 5
+                                      ? _presnter.pickImage
+                                      : _presnter.toastMaxIamge,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: colorMediumGray,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              )
+                            : Container(
+                                margin: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    _presnter.images[index - 1],
+                                    width: double.infinity,
+                                    height: 130,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                      },
+                    ),
+                  )
                 ],
               ),
               EdtInfoContentView(
                 title: 'Dịch vụ',
-                controller: serviceController,
+                controller: _presnter.serviceController,
                 inputAction: TextInputAction.done,
               ),
               BtnView(
-                press: () {},
+                press: _presnter.createCampsite,
                 text: 'Tạo Khu Cắm Trại',
                 color: colorPrimary,
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -130,5 +196,10 @@ class _MngAddCampScreenState extends State<MngAddCampScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void updateSate() {
+    setState(() {});
   }
 }

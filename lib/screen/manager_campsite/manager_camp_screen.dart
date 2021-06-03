@@ -11,9 +11,10 @@ class MngCampScreen extends StatefulWidget {
 }
 
 class _MngCampScreenState extends State<MngCampScreen> {
-
   CollectionReference getUser =
       FirebaseFirestore.instance.collection('manager');
+  CollectionReference getCampsite =
+      FirebaseFirestore.instance.collection('campsite');
   final FirebaseAuth auth = FirebaseAuth.instance;
   User user;
 
@@ -39,5 +40,11 @@ class _MngCampScreenState extends State<MngCampScreen> {
     user = auth.currentUser;
     final email = user.email;
     print(email);
+  }
+
+  Widget mngCamp() {
+    getUser.doc(user.email).get().then((doc) {
+      if (doc.exists) {}
+    });
   }
 }
