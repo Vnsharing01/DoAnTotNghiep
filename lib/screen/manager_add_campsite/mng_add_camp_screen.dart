@@ -62,16 +62,18 @@ class _MngAddCampScreenState extends State<MngAddCampScreen>
                   Expanded(
                     child: ItemInfoView(
                       title: 'latitude : ',
-                      hint: 'ABC Camp',
+                      hint: '21.0228161',
                       controller: _presnter.latitudeController,
+                      textType: TextInputType.number,
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: ItemInfoView(
                       title: 'logitude : ',
-                      hint: 'ABC Camp',
+                      hint: '105.801944',
                       controller: _presnter.longitudeController,
+                      textType: TextInputType.number,
                     ),
                   ),
                 ],
@@ -85,6 +87,7 @@ class _MngAddCampScreenState extends State<MngAddCampScreen>
                 title: 'Hotline : ',
                 hint: '0123456789',
                 controller: _presnter.hotLineController,
+                textType: TextInputType.number,
               ),
               ItemInfoView(
                 title: 'Fanpage : ',
@@ -112,12 +115,14 @@ class _MngAddCampScreenState extends State<MngAddCampScreen>
                     title: 'người lớn : ',
                     hint: '100000 vnd',
                     controller: _presnter.personPriceController,
+                    textType: TextInputType.number,
                   ),
                   SizedBox(width: 10),
                   ItemInfoView(
                     title: 'trẻ em : ',
                     hint: '50000 vnd',
                     controller: _presnter.chilPriceController,
+                    textType: TextInputType.number,
                   ),
                 ],
               ),

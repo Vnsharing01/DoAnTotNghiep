@@ -8,11 +8,12 @@ class ItemInfoView extends StatefulWidget {
     @required this.title,
     this.hint,
     @required this.controller,
+    this.textType,
   }) : super(key: key);
   final String title;
   final String hint;
   final TextEditingController controller;
-
+  final TextInputType textType;
   @override
   _ItemInfoViewState createState() => _ItemInfoViewState();
 }
@@ -33,7 +34,6 @@ class _ItemInfoViewState extends State<ItemInfoView> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-          
           hintText: widget.hint,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -43,6 +43,7 @@ class _ItemInfoViewState extends State<ItemInfoView> {
           fillColor: colorWhite,
           filled: true,
         ),
+        keyboardType: widget.textType,
       ),
     );
   }
