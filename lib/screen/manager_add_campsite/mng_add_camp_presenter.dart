@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
+import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:yuru_camp/screen/manager_add_campsite/add_camp_api_client.dart';
-import 'package:yuru_camp/screen/manager_campsite/manager_camp_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as Path;
 
@@ -55,7 +54,7 @@ class AddCampPresnter extends Presenter {
       uploadImage(campName: campNameController.text);
 
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MngCampScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
         (route) => false,
       );
     } catch (e, stack) {
@@ -96,7 +95,6 @@ class AddCampPresnter extends Presenter {
         .collection('images')
         .add({
       'url': douwnloadUrl,
-      'img': img.toString(),
     });
   }
 
