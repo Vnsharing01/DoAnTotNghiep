@@ -6,12 +6,12 @@ class UserModel {
   final String gender;
   final String phone;
 
-  UserModel(
+  UserModel({
     this.email,
     this.name,
     this.avatar,
     this.birth,
     this.gender,
     this.phone,
-  );
+  });
 }

@@ -1,3 +1,4 @@
+import 'package:yuru_camp/model/campsite.dart';
 import 'package:yuru_camp/screen/booking_schedule/booking_screen/booking_screen.dart';
 import 'package:yuru_camp/screen/map/map_direct_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -8,19 +9,27 @@ import '../../views/btn_item_view.dart';
 import 'view/info_item_view.dart';
 import 'view/title_item_view.dart';
 
-final banner = [
-  'assets/images/cam_trai_dong_mo_1.jpg',
-  'assets/images/cam_trai_dong_mo_2.jpg',
-  'assets/images/cam_trai_dong_mo_3.jpg',
-];
-int position = 0;
+// final banner = [
+//   'assets/images/cam_trai_dong_mo_1.jpg',
+//   'assets/images/cam_trai_dong_mo_2.jpg',
+//   'assets/images/cam_trai_dong_mo_3.jpg',
+// ];
+
 
 class CampsiteDetailScreen extends StatefulWidget {
+  const CampsiteDetailScreen({
+    Key key,
+    this.model,
+  }) : super(key: key);
+
+  final CampsiteModel model;
+
   @override
   _CampsiteDetailScreenState createState() => _CampsiteDetailScreenState();
 }
 
 class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
+  int position = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +62,6 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                     padding: EdgeInsets.only(bottom: 80),
                     child: Container(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height,
                       margin: EdgeInsets.symmetric(vertical: 16),
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
@@ -61,7 +69,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Khu cắm trại Đồng Mô',
+                            widget.model.campName ?? '',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -70,23 +78,23 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                           SizedBox(height: 10),
                           InfoItemView(
                             title: 'Địa chỉ',
-                            text: 'Sơn Đông, Sơn Tây, Hà Nội',
+                            text: widget.model.address ?? '',
                           ),
                           InfoItemView(
                             title: 'Hotline',
-                            text: '0908353377',
+                            text: widget.model.hotline.toString() ?? '',
                           ),
                           InfoItemView(
                             title: 'Fanpage',
-                            text: 'fb/camtraidongmo ',
+                            text: widget.model.fanpage ?? '',
                           ),
                           InfoItemView(
                             title: 'Email',
-                            text: 'sale@campingsport.vn',
+                            text: widget.model.email ?? '',
                           ),
                           InfoItemView(
                             title: 'Website',
-                            text: 'CampingSport.vn',
+                            text: widget.model.web ?? '',
                           ),
                           Container(
                             width: double.infinity,
@@ -99,11 +107,18 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 20),
                                   child: Text(
-                                    ' Camping Sport Đồng Mô sở hữu cho mình 3,9 ha với địa hình lý tưởng với tổ hợp rừng, núi, hồ nước, không gian xanh mát, không khí trong lành rất thích hợp cho các hoạt động dã ngoại cắm trại, vui chơi, vận động, trải nghiệm, thử thách giới hạn của bản thân nhưng cũng hết sức thư giãn, xả stress hiệu quả.',
+                                    widget.model.intro ?? '',
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 ),
                                 TitleItemView(title: 'Dịch vụ'),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  child: Text(
+                                    widget.model.service ?? '',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -134,7 +149,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                          text: '100000',
+                          text: widget.model.personPrice.toString() ?? '100000',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.red,
@@ -198,7 +213,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
             autoplayDelay: 3000,
             onIndexChanged: (value) {
               setState(() {
-                if (value > banner.length) {
+                if (value > widget.model.images.length || value == 0) {
                   value = 0;
                   return position = value;
                 } else {
@@ -207,11 +222,11 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                 }
               });
             },
-            itemCount: banner.length,
+            itemCount: widget.model.images.length,
             itemBuilder: (context, index) {
               return Container(
-                child: Image.asset(
-                  banner[index],
+                child: Image.network(
+                  widget.model.images[index],
                   fit: BoxFit.cover,
                 ),
               );
@@ -233,7 +248,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
               ),
             ),
             child: DotsIndicator(
-              dotsCount: banner.length,
+              dotsCount: widget.model.images.length ,
               position: position.toDouble(),
               decorator: DotsDecorator(
                 activeColor: Colors.orange,
