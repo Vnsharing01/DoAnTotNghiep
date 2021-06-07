@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +10,8 @@ import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:yuru_camp/screen/manager_add_campsite/add_camp_api_client.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as Path;
+
+import '../navigation_view.dart';
 
 class AddCampPresnter extends Presenter {
   AddCampPresnter(BuildContext context, Contract view) : super(context, view);
@@ -42,7 +45,7 @@ class AddCampPresnter extends Presenter {
         address: addressController.text,
         area: areaController.text,
         fanPage: fanPageController.text,
-        hotline: hotLineController.text,
+        hotline: int.tryParse(hotLineController.text),
         intro: introController.text,
         web: webController.text,
         service: serviceController.text,
@@ -54,7 +57,7 @@ class AddCampPresnter extends Presenter {
       uploadImage(campName: campNameController.text);
 
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => NavigationView()),
         (route) => false,
       );
     } catch (e, stack) {
@@ -83,18 +86,17 @@ class AddCampPresnter extends Presenter {
           .child('campsite/$campName/${Path.basename(img.path)}');
       print('campsite/$campName/${Path.basename(img.path)}');
       await ref.putFile(img);
-      addImage(img);
+      addImage(campName);
     }
   }
 
   /// thêm image vào firestore
-  addImage(File img) async {
+  addImage(String campName) async {
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('campsite').doc(campName);
     final String douwnloadUrl = await ref.getDownloadURL();
-    await _apiCLient.addCampsite
-        .doc(campNameController.text)
-        .collection('images')
-        .add({
-      'url': douwnloadUrl,
+    docRef.update({
+      'images': FieldValue.arrayUnion([douwnloadUrl])
     });
   }
 

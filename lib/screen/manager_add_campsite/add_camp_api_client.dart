@@ -16,14 +16,13 @@ class MngAddCampApiCLient {
   CollectionReference addCamMng =
       FirebaseFirestore.instance.collection('manager');
 
-
-    /// tạo campsite mới
+  /// tạo campsite mới
   void createCampsite({
     String campName,
     String address,
     String area,
     String fanPage,
-    String hotline,
+    int hotline,
     String intro,
     String web,
     String service,
@@ -32,6 +31,7 @@ class MngAddCampApiCLient {
     BuildContext context,
     int personPrice,
     int childPrice,
+    List images,
   }) async {
     user = auth.currentUser;
 
@@ -50,6 +50,7 @@ class MngAddCampApiCLient {
       'longitude': longitude ?? null,
       'person_price': personPrice ?? null,
       'child_price': childPrice ?? null,
+      'images' : images ?? null,
     }).then((value) {
       print("User Added");
       createCampMng(campName: campName);
@@ -64,7 +65,6 @@ class MngAddCampApiCLient {
     );
   }
 
-
   /// tạo quản lý khu cắm trại mới
   void createCampMng({String campName}) async {
     await addCamMng.doc(user.email).set({
@@ -77,6 +77,4 @@ class MngAddCampApiCLient {
       (error) => print("Failed to add mng: $error"),
     );
   }
-
-
 }
