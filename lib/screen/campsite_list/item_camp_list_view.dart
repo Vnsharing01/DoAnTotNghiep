@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/model/campsite.dart';
 import 'package:yuru_camp/screen/campsite_details/campsite_detail_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 
-class ItemCampListView extends StatefulWidget {
+class ItemCampListView extends StatelessWidget {
   const ItemCampListView({
     Key key,
     this.model,
@@ -12,19 +12,15 @@ class ItemCampListView extends StatefulWidget {
 
   final CampsiteModel model;
 
-  @override
-  _ItemCampListViewState createState() => _ItemCampListViewState();
-}
 
-class _ItemCampListViewState extends State<ItemCampListView> {
   @override
   Widget build(BuildContext context) {
-    List img = widget.model.images;
+    List img = model.images;
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CampsiteDetailScreen(model: widget.model),
+            builder: (context) => CampsiteDetailScreen(model: model),
           ),
         );
       },
@@ -59,14 +55,14 @@ class _ItemCampListViewState extends State<ItemCampListView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.model.campName ?? '',
+                      model.campName ?? '',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      widget.model.intro ?? '',
+                      model.intro ?? '',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -75,7 +71,7 @@ class _ItemCampListViewState extends State<ItemCampListView> {
                       alignment: Alignment.bottomRight,
                       child: RichText(
                         text: TextSpan(
-                          text: widget.model.personPrice.toString(),
+                          text: model.personPrice.toString(),
                           children: [
                             TextSpan(
                               text: ' vnd/ng',
