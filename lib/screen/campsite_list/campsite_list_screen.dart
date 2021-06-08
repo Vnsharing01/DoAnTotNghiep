@@ -33,49 +33,52 @@ class _CampsiteListScreenState extends State<CampsiteListScreen>
         title: Text('Danh sách khu cắm trại'),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: TextFormField(
-                        controller: _presenter.areaController,
-                        decoration: InputDecoration(
-                          hintText: 'Hà Nội',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
+      body: GestureDetector(
+        onTap: _presenter.hideKeyBoard,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: TextFormField(
+                          controller: _presenter.areaController,
+                          decoration: InputDecoration(
+                            hintText: 'Hà Nội',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
                           ),
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: BtnItemView(
-                        press: () {
-                          _presenter.searchArea(context);
-                        },
-                        text: 'Tìm',
-                        color: colorPrimary,
-                        margin: EdgeInsets.only(left: 10),
+                      Expanded(
+                        flex: 2,
+                        child: BtnItemView(
+                          press: () {
+                            _presenter.searchArea(context);
+                          },
+                          text: 'Tìm',
+                          color: colorPrimary,
+                          margin: EdgeInsets.only(left: 10),
+                        ),
                       ),
-                    ),
-                  ],
-                )),
-            Divider(height: 5, color: Colors.grey),
-            Expanded(
-              flex: 8,
-              child: _presenter.campsiteAll(),
-            )
-          ],
+                    ],
+                  )),
+              Divider(height: 5, color: Colors.grey),
+              Expanded(
+                flex: 8,
+                child: _presenter.campsiteAll(),
+              )
+            ],
+          ),
         ),
       ),
     );
