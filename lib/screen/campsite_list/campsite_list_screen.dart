@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/screen/campsite_list/campsite_list_presenter.dart';
-
+import 'package:yuru_camp/styles/color.dart';
+import 'package:yuru_camp/views/btn_item_view.dart';
 
 class CampsiteListScreen extends StatefulWidget {
   @override
@@ -39,21 +40,39 @@ class _CampsiteListScreenState extends State<CampsiteListScreen>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Hà Nội',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                ),
-              ),
-            ),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: TextFormField(
+                        controller: _presenter.areaController,
+                        decoration: InputDecoration(
+                          hintText: 'Hà Nội',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: BtnItemView(
+                        press: () {
+                          _presenter.searchArea(context);
+                        },
+                        text: 'Tìm',
+                        color: colorPrimary,
+                        margin: EdgeInsets.only(left: 10),
+                      ),
+                    ),
+                  ],
+                )),
             Divider(height: 5, color: Colors.grey),
             Expanded(
+              flex: 8,
               child: _presenter.campsiteAll(),
             )
           ],

@@ -26,6 +26,7 @@ class BtnItemView extends StatelessWidget {
         ),
         child: Text(
           text,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
