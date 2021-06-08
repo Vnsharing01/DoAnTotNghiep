@@ -1,4 +1,3 @@
-import 'package:yuru_camp/screen/history_details/his_details_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'item_his_view.dart';

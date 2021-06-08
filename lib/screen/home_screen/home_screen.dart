@@ -1,15 +1,11 @@
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/screen/history/history_screen.dart';
-import 'package:yuru_camp/screen/history_details/his_details_screen.dart';
-import 'package:yuru_camp/screen/campsite_details/campsite_detail_screen.dart';
-import 'package:yuru_camp/screen/campsite_list/campsite_list_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:yuru_camp/screen/home_screen/home_presenter.dart';
 
 import 'view/home_title_item_view.dart';
-import 'view/item_camp_list_home_view.dart';
 
 final banner = [
   'assets/images/banrom_banner.jpg',

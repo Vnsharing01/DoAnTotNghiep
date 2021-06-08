@@ -3,7 +3,6 @@ import 'package:yuru_camp/base/validators.dart';
 import 'package:yuru_camp/screen/login/login_screen.dart';
 import 'package:yuru_camp/screen/singup/signup_presenter.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/login_signup_feild_view.dart';

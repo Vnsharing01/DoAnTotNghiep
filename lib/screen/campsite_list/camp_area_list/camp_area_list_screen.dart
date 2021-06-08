@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
-import 'package:yuru_camp/model/campsite.dart';
 import 'package:yuru_camp/screen/campsite_list/camp_area_list/camp_area_list_presenter.dart';
-import 'package:yuru_camp/screen/campsite_list/item_camp_list_view.dart';
 
 class CampAreaListScreen extends StatefulWidget {
   const CampAreaListScreen({

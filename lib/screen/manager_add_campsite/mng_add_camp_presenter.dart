@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
-import 'package:yuru_camp/screen/home_screen/home_screen.dart';
 import 'package:yuru_camp/screen/manager_add_campsite/add_camp_api_client.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as Path;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
-import 'package:yuru_camp/screen/login/login_screen.dart';
 import 'package:yuru_camp/screen/singup/signup_api_client.dart';
 
 class SignupPresenter extends Presenter {
