@@ -39,7 +39,7 @@ class _MngAddCampScreenState extends State<MngAddCampScreen>
         ),
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: _presnter.hideKeyBoard,
         child: SingleChildScrollView(
           padding: EdgeInsets.all(20),
           child: Column(
