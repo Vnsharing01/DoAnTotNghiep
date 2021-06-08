@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
-import 'package:yuru_camp/model/campsite.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/campsite_list/camp_area_list/camp_area_list_screen.dart';
 
 import 'item_camp_list_view.dart';

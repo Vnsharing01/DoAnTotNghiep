@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:yuru_camp/model/campsite.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/campsite_details/campsite_detail_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 

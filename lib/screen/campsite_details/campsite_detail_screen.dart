@@ -1,4 +1,4 @@
-import 'package:yuru_camp/model/campsite.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/booking_schedule/booking_screen/booking_screen.dart';
 import 'package:yuru_camp/screen/map/map_direct_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
