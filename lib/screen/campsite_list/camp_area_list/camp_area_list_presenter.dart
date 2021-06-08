@@ -17,17 +17,29 @@ class CampAreaPresenter extends Presenter {
       stream: ref.where('area', isEqualTo: area).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
-            return Text("Loading...");
-          }
-        return ListView(
-            padding: EdgeInsets.only(top: 10),
-            children: snapshot.data.docs.map((DocumentSnapshot document) {
-              _campsiteModel = campsite(document);
-              return ItemCampListView(
-                model: _campsiteModel,
-              );
-            }).toList(),
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Loading..."),
           );
+        }
+        if (snapshot.data.docs.isEmpty) {
+          return Center(
+            child: Text(
+              'Không có khu cắm trại nào trong khu vực này',
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+        return ListView(
+          padding: EdgeInsets.only(top: 10),
+          children: snapshot.data.docs.map((DocumentSnapshot document) {
+            _campsiteModel = campsite(document);
+
+            return ItemCampListView(
+              model: _campsiteModel,
+            );
+          }).toList(),
+        );
       },
     );
   }

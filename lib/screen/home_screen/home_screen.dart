@@ -1,3 +1,4 @@
+import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/screen/history/history_screen.dart';
 import 'package:yuru_camp/screen/history_details/his_details_screen.dart';
 import 'package:yuru_camp/screen/campsite_details/campsite_detail_screen.dart';
@@ -5,8 +6,10 @@ import 'package:yuru_camp/screen/campsite_list/campsite_list_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:yuru_camp/screen/home_screen/home_presenter.dart';
 
 import 'view/home_title_item_view.dart';
+import 'view/item_camp_list_home_view.dart';
 
 final banner = [
   'assets/images/banrom_banner.jpg',
@@ -15,7 +18,19 @@ final banner = [
   'assets/images/tamdao.jpg',
 ];
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>  implements Contract {
+  HomePresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = HomePresenter(context, this);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,11 +74,7 @@ class HomeScreen extends StatelessWidget {
                 height: 164,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => HisDetailsScreen(),
-                    ));
-                  },
+                  onTap: _presenter.showAllHistory,
                   child: Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(15),
@@ -123,84 +134,13 @@ class HomeScreen extends StatelessWidget {
               ),
               HomeTitleMoreItemView(
                 title: 'Một số khu cắm trại',
-                press: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => CampsiteListScreen(),
-                    ),
-                  );
-                },
+                press: _presenter.showAllCampsite,
               ),
               Container(
                 width: double.infinity,
                 height: 550,
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => CampsiteDetailScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                        height: 250,
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10)),
-                              child: Image(
-                                image: AssetImage(
-                                    'assets/images/dongmo_banner.jpg'),
-                                height: 140,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Đồng Mô Camp',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text('khu cắm trại Bản Rõm '),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(3, 4),
-                              blurRadius: 5,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: _presenter.showCampsite(),
               )
             ],
           ),
@@ -231,4 +171,12 @@ class HomeScreen extends StatelessWidget {
       ],
     );
   }
+
+  @override
+  void updateSate() {
+    setState(() {
+      
+    });
+  }
 }
+
