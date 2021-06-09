@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/model/booking_model.dart';
+import 'package:yuru_camp/styles/styles.dart';
 
 class ItemRecentHisView extends StatelessWidget {
   const ItemRecentHisView({
@@ -29,16 +30,26 @@ class ItemRecentHisView extends StatelessWidget {
               ),
             ]),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               flex: 4,
               child: ClipRRect(
-                child: Image(
-                  image: AssetImage('assets/images/nhathodo.jpg'),
-                  fit: BoxFit.cover,
-                  width: 100,
-                  height: double.infinity,
-                ),
+                child: model.imageUrl == null || model.imageUrl.isEmpty
+                    ? Container(
+                        child: Text(
+                          'không có ảnh',
+                          style: Styles.defaultStyle(),
+                        ),
+                        width: 100,
+                        height: 100,
+                      )
+                    : Image(
+                        image: NetworkImage(model.imageUrl),
+                        width: 100,
+                        height: 110,
+                        fit: BoxFit.cover,
+                      ),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -51,17 +62,36 @@ class ItemRecentHisView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Vườn quốc gia Ba Vì' ?? '',
+                      model.campName ?? '',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text(
-                      'Nội dung giới thiệu khu cắm trại' ?? '',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text(
+                          'Ngày checkin: ',
+                          style: Styles.defaultStyle(),
+                        ),
+                        Text(
+                          model.checkinDate ?? '',
+                          style: Styles.defaultStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'thời gian checkin: ',
+                          style: Styles.defaultStyle(),
+                        ),
+                        Text(
+                          model.checkinTime ?? '',
+                          style: Styles.defaultStyle(),
+                        ),
+                      ],
                     ),
                   ],
                 ),

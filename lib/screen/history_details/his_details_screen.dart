@@ -1,7 +1,15 @@
+import 'package:yuru_camp/model/booking_model.dart';
 import 'package:yuru_camp/views/row_info_item_view.dart';
 import 'package:flutter/material.dart';
 
 class HisDetailsScreen extends StatelessWidget {
+  const HisDetailsScreen({
+    Key key,
+    this.model,
+  }) : super(key: key);
+
+  final BookingModel model;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +21,7 @@ class HisDetailsScreen extends StatelessWidget {
           },
           child: Image.asset('assets/icons/ic_back_black.png'),
         ),
-        title: Text('ABC Camp'),
+        title: Text(model.campName),
         centerTitle: true,
       ),
       body: Padding(
@@ -32,27 +40,27 @@ class HisDetailsScreen extends StatelessWidget {
                 )),
             RowInfoItemView(
               title: 'Ngày',
-              text: '09-05-2021',
+              text: model.checkinDate ?? '',
             ),
             RowInfoItemView(
               title: 'Giờ',
-              text: '08:30 AM',
+              text: model.checkinTime ?? '',
             ),
             RowInfoItemView(
               title: 'Lưu trú',
-              text: 'qua đêm',
+              text: model.stay ?? '',
             ),
             RowInfoItemView(
               title: 'Số người',
-              text: '5',
+              text: model.people.toString() ?? '',
             ),
             RowInfoItemView(
               title: 'Trẻ em',
-              text: '2',
+              text: model.children.toString() ?? '',
             ),
             RowInfoItemView(
               title: 'Giá vé',
-              text: '400000 vnd',
+              text: '${model.price} vnd' ?? '',
             ),
           ],
         ),

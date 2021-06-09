@@ -58,7 +58,7 @@ class ItemCampListHomeView extends StatelessWidget {
                   ),
                   Text(
                     model.intro ?? '',
-                    // maxLines: 4,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
