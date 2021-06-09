@@ -46,9 +46,7 @@ class HomePresenter extends Presenter {
               itemBuilder: (context, index) {
                 final DocumentSnapshot _doc = snapshot.data.docs[index];
                 _campsiteModel = campsite(_doc);
-                return ItemCampListHomeView(
-                  model: _campsiteModel,
-                );
+                return ItemCampListHomeView(model: _campsiteModel);
               });
         });
   }
@@ -108,7 +106,6 @@ class HomePresenter extends Presenter {
                 final DocumentSnapshot _doc = snapshot.data.docs[index];
                 if (_doc.data()['email'] == userData().email) {
                   _bookingModel = booking(_doc);
-
                   debugPrint(
                       'thời gian khởi tạo : ${_bookingModel.createDate.toDate()}');
                   return ItemRecentHisView(
@@ -135,8 +132,6 @@ class HomePresenter extends Presenter {
       ),
     );
   }
-
-
 
   void showAllCampsite() async {
     await Navigator.of(context).push(
