@@ -1,34 +1,22 @@
+import 'package:yuru_camp/model/booking_model.dart';
 import 'package:yuru_camp/screen/history_details/his_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/styles/styles.dart';
 
 class ItemListHisView extends StatelessWidget {
   const ItemListHisView({
     Key key,
-    this.image,
-    this.name,
-    this.date,
-    this.checkInTime,
-    this.stay,
-    this.prices,
+    this.model,
   }) : super(key: key);
-  @required
-  final String image;
-  @required
-  final String name;
-  @required
-  final String date;
-  @required
-  final String checkInTime;
-  @required
-  final String stay;
-  @required
-  final int prices;
+  final BookingModel model;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => HisDetailsScreen()),
+          MaterialPageRoute(
+            builder: (context) => HisDetailsScreen(model: model),
+          ),
         );
       },
       child: Container(
@@ -38,7 +26,7 @@ class ItemListHisView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image(
-              image: AssetImage(image),
+              image: NetworkImage(model.imageUrl),
               width: 100,
               height: 100,
               fit: BoxFit.cover,
@@ -51,7 +39,7 @@ class ItemListHisView extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text(
-                      name,
+                      model.campName ?? '',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -60,26 +48,50 @@ class ItemListHisView extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text('Ngày: '),
-                      Text(date),
+                      Text(
+                        'Ngày checkin: ',
+                        style: Styles.defaultStyle(),
+                      ),
+                      Text(
+                        model.checkinDate ?? '',
+                        style: Styles.defaultStyle(),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      Text('Check-in: '),
-                      Text(checkInTime),
+                      Text(
+                        'thời gian checkin: ',
+                        style: Styles.defaultStyle(),
+                      ),
+                      Text(
+                        model.checkinTime ?? '',
+                        style: Styles.defaultStyle(),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      Text('Lưu trú: '),
-                      Text(stay),
+                      Text(
+                        'Lưu trú: ',
+                        style: Styles.defaultStyle(),
+                      ),
+                      Text(
+                        model.stay ?? '',
+                        style: Styles.defaultStyle(),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      Text('Giá vé: '),
-                      Text('$prices vnd'),
+                      Text(
+                        'Giá vé: ',
+                        style: Styles.defaultStyle(),
+                      ),
+                      Text(
+                        '${model.price} vnd' ?? '',
+                        style: Styles.defaultStyle(),
+                      ),
                     ],
                   ),
                 ],

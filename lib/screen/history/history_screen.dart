@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/screen/history/history_presenter.dart';
+import 'package:yuru_camp/styles/color.dart';
+import 'package:yuru_camp/views/btn_item_view.dart';
 
-import 'item_his_view.dart';
+class HistoryScreen extends StatefulWidget {
+  @override
+  _HistoryScreenState createState() => _HistoryScreenState();
+}
 
-class HistoryScreen extends StatelessWidget {
+class _HistoryScreenState extends State<HistoryScreen> implements Contract {
+  HistoryPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = HistoryPresenter(context, this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,44 +32,55 @@ class HistoryScreen extends StatelessWidget {
         title: Text('Lịch sử cắm trại'),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
+      body: GestureDetector(
+        onTap: _presenter.hideKeyBoard,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
+            Container(
+              width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 26, vertical: 20),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    hintText: '09-09-2021',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 6,
+                    child: TextFormField(
+                      controller: _presenter.dateController,
+                      decoration: InputDecoration(
+                        hintText: '09-09-2021',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        fillColor: colorWhite,
+                        filled: true,
+                      ),
                     ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 5, horizontal: 15)),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: BtnItemView(
+                      press: _presenter.showHisByDate,
+                      text: 'Tìm',
+                      color: colorPrimary,
+                      margin: EdgeInsets.only(left: 10),
+                    ),
+                  ),
+                ],
               ),
             ),
             Divider(height: 5, color: Colors.grey),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  return ItemListHisView(
-                    image: 'assets/images/nhathodo.jpg',
-                    name: 'ABC Camp',
-                    date: '09-05-2021',
-                    checkInTime: '08:21 AM',
-                    stay: 'qua đêm',
-                    prices: 400000,
-                  );
-                },
-              ),
-            )
+            Expanded(child: _presenter.allHisBooking())
           ],
         ),
       ),
     );
   }
+
+  @override
+  void updateSate() {
+    setState(() {});
+  }
 }
-
-
