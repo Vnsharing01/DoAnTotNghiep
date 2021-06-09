@@ -8,12 +8,13 @@ class ItemCampListHomeView extends StatelessWidget {
     this.model,
   }) : super(key: key);
   final CampsiteModel model;
+
   @override
   Widget build(BuildContext context) {
     List img = model.images;
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
+      onTap: () async {
+        await Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => CampsiteDetailScreen(model: model),
           ),
