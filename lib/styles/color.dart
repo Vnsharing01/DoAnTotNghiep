@@ -7,6 +7,7 @@ Color colorDarkGray = Color(0xffAFAFAF);
 Color colorMediumGray = Color(0xffEFEFEF);
 Color colorWhite = Color(0xffFFFFFF);
 Color colorRed = Color(0xffFF0000);
+Color colorbgDarkGray = Color(0xFFD6D6D6);
 
 //----------------text-----------------//
 Color colorTvBlack = Color(0xff000000);
