@@ -40,7 +40,7 @@ class ItemListHisView extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       model.campName ?? '',
-                      style: TextStyle(
+                      style: Styles.copyStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -50,11 +50,11 @@ class ItemListHisView extends StatelessWidget {
                     children: [
                       Text(
                         'Ngày checkin: ',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                       Text(
                         model.checkinDate ?? '',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                     ],
                   ),
@@ -62,11 +62,11 @@ class ItemListHisView extends StatelessWidget {
                     children: [
                       Text(
                         'thời gian checkin: ',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                       Text(
                         model.checkinTime ?? '',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                     ],
                   ),
@@ -74,11 +74,11 @@ class ItemListHisView extends StatelessWidget {
                     children: [
                       Text(
                         'Lưu trú: ',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                       Text(
                         model.stay ?? '',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                     ],
                   ),
@@ -86,11 +86,11 @@ class ItemListHisView extends StatelessWidget {
                     children: [
                       Text(
                         'Giá vé: ',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                       Text(
                         '${model.price} vnd' ?? '',
-                        style: Styles.defaultStyle(),
+                        style: Styles.copyStyle(),
                       ),
                     ],
                   ),

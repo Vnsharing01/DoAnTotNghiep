@@ -39,7 +39,7 @@ class ItemRecentHisView extends StatelessWidget {
                     ? Container(
                         child: Text(
                           'không có ảnh',
-                          style: Styles.defaultStyle(),
+                          style: Styles.copyStyle(),
                         ),
                         width: 100,
                         height: 100,
@@ -73,11 +73,11 @@ class ItemRecentHisView extends StatelessWidget {
                       children: [
                         Text(
                           'Ngày checkin: ',
-                          style: Styles.defaultStyle(),
+                          style: Styles.copyStyle(),
                         ),
                         Text(
                           model.checkinDate ?? '',
-                          style: Styles.defaultStyle(),
+                          style: Styles.copyStyle(),
                         ),
                       ],
                     ),
@@ -85,11 +85,11 @@ class ItemRecentHisView extends StatelessWidget {
                       children: [
                         Text(
                           'thời gian checkin: ',
-                          style: Styles.defaultStyle(),
+                          style: Styles.copyStyle(),
                         ),
                         Text(
                           model.checkinTime ?? '',
-                          style: Styles.defaultStyle(),
+                          style: Styles.copyStyle(),
                         ),
                       ],
                     ),
