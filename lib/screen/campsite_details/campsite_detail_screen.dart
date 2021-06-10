@@ -1,6 +1,6 @@
 import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/booking_schedule/booking_screen/booking_screen.dart';
-import 'package:yuru_camp/screen/map/map_direct_screen.dart';
+import 'package:yuru_camp/screen/campsite_map/campsite_map_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -9,11 +9,6 @@ import '../../views/btn_item_view.dart';
 import 'view/info_item_view.dart';
 import 'view/title_item_view.dart';
 
-// final banner = [
-//   'assets/images/cam_trai_dong_mo_1.jpg',
-//   'assets/images/cam_trai_dong_mo_2.jpg',
-//   'assets/images/cam_trai_dong_mo_3.jpg',
-// ];
 
 
 class CampsiteDetailScreen extends StatefulWidget {
@@ -183,7 +178,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                           press: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => MapDirectScreen(),
+                                builder: (context) => CampsiteMapScreen(model: widget.model),
                               ),
                             );
                           },
