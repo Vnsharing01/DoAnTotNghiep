@@ -88,9 +88,10 @@ class HomePresenter extends Presenter {
 
   /// truy xuất lịch đặt gần nhất
   Widget showrecentHisBooking() {
+
     return StreamBuilder<QuerySnapshot>(
         stream: hisRef
-            .where('create_date', isLessThan: DateTime.now())
+            .where('create_date', isLessThanOrEqualTo: DateTime.now())
             .orderBy('create_date', descending: true)
             .limit(1)
             .snapshots(),
@@ -108,6 +109,7 @@ class HomePresenter extends Presenter {
                   _bookingModel = booking(_doc);
                   debugPrint(
                       'thời gian khởi tạo : ${_bookingModel.createDate.toDate()}');
+
                   return ItemRecentHisView(
                     model: _bookingModel,
                     press: () async {
