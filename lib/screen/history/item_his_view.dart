@@ -25,12 +25,18 @@ class ItemListHisView extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(
-              image: NetworkImage(model.imageUrl),
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
+            model.imageUrl == null || model.imageUrl.isEmpty
+                ? Container(
+                    child: Text('không có ảnh'),
+                    width: 100,
+                    height: 100,
+                  )
+                : Image(
+                    image: NetworkImage(model.imageUrl),
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
             Padding(
               padding: EdgeInsets.only(left: 10, right: 2),
               child: Column(

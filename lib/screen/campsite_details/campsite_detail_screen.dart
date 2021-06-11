@@ -1,5 +1,5 @@
 import 'package:yuru_camp/model/campsite_model.dart';
-import 'package:yuru_camp/screen/booking_schedule/booking_screen/booking_screen.dart';
+import 'package:yuru_camp/screen/booking_screen/booking_screen.dart';
 import 'package:yuru_camp/screen/campsite_map/campsite_map_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +8,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../views/btn_item_view.dart';
 import 'view/info_item_view.dart';
 import 'view/title_item_view.dart';
-
-
 
 class CampsiteDetailScreen extends StatefulWidget {
   const CampsiteDetailScreen({
@@ -166,7 +164,8 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                           press: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => BookingScreen(),
+                                builder: (context) =>
+                                    BookingScreen(model: widget.model),
                               ),
                             );
                           },
@@ -178,7 +177,8 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                           press: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => CampsiteMapScreen(model: widget.model),
+                                builder: (context) =>
+                                    CampsiteMapScreen(model: widget.model),
                               ),
                             );
                           },
@@ -243,7 +243,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
               ),
             ),
             child: DotsIndicator(
-              dotsCount: widget.model.images.length ,
+              dotsCount: widget.model.images.length,
               position: position.toDouble(),
               decorator: DotsDecorator(
                 activeColor: Colors.orange,
