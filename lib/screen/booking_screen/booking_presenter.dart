@@ -3,10 +3,10 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
 import 'package:yuru_camp/model/campsite_model.dart';
-import 'package:yuru_camp/screen/booking_screen/booking_api_client.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/styles/styles.dart';
 
@@ -36,7 +36,7 @@ class BookingPresenter extends Presenter {
   TimeOfDay selectTime = TimeOfDay(hour: 00, minute: 00);
 
   int _price;
-  BookingApiClient _apiClient;
+
   CampsiteModel _campModel;
 
   CampsiteModel campData({CampsiteModel model}) {
@@ -60,8 +60,6 @@ class BookingPresenter extends Presenter {
 
   @override
   void init() {
-    _apiClient = BookingApiClient();
-
     selectRadio = 0;
     titlRadio = '';
 
