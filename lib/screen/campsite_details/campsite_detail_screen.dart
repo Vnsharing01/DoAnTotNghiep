@@ -21,6 +21,7 @@ class CampsiteDetailScreen extends StatefulWidget {
   _CampsiteDetailScreenState createState() => _CampsiteDetailScreenState();
 }
 
+//TODO :  tạo presenter 
 class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
   int position = 0;
   @override
