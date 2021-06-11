@@ -34,7 +34,7 @@ class MngAddCampApiCLient {
   }) async {
     user = auth.currentUser;
 
-    /// thêm user vào fireStore
+    /// thêm campsite vào fireStore
     await addCampsite.doc(campName).set({
       'email': user.email,
       'camp_name': campName,
@@ -51,7 +51,7 @@ class MngAddCampApiCLient {
       'child_price': childPrice ?? null,
       'images' : images ?? null,
     }).then((value) {
-      print("User Added");
+      print("campsite Added");
       createCampMng(campName: campName);
 
       Fluttertoast.showToast(
