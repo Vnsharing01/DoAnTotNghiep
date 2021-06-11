@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yuru_camp/screen/booking_list/booking_list_screen.dart';
+import 'package:yuru_camp/screen/user_book_list/user_book_list_screen.dart';
 import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
 import 'package:yuru_camp/screen/manager_edit_camp_info/edit_camp_info_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
@@ -79,7 +79,7 @@ class MngYourCampScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => BookingListScreen(),
+                          builder: (context) => UserBookListScreen(),
                         ),
                       );
                     },
