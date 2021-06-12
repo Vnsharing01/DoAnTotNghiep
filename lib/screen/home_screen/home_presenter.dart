@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
 import 'package:yuru_camp/model/booking_model.dart';
 import 'package:yuru_camp/model/campsite_model.dart';
-import 'package:yuru_camp/model/user_model.dart';
 import 'package:yuru_camp/screen/campsite_list/campsite_list_screen.dart';
 import 'package:yuru_camp/screen/history/history_screen.dart';
 import 'package:yuru_camp/screen/history_details/his_details_screen.dart';
@@ -16,22 +15,11 @@ import 'view/item_recent_his_view.dart';
 class HomePresenter extends Presenter {
   HomePresenter(BuildContext context, Contract view) : super(context, view);
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
   CollectionReference campRef =
       FirebaseFirestore.instance.collection('campsite');
   CollectionReference hisRef = FirebaseFirestore.instance.collection('booking');
   CampsiteModel _campsiteModel;
   BookingModel _bookingModel;
-
-  UserModel userData() {
-    final User user = auth.currentUser;
-    return UserModel(
-      email: user.email,
-      avatar: user.photoURL,
-      name: user.displayName,
-    );
-  }
 
   /// truy xuất campsite
   Widget showCampsite() {
@@ -88,7 +76,6 @@ class HomePresenter extends Presenter {
 
   /// truy xuất lịch đặt gần nhất
   Widget showrecentHisBooking() {
-
     return StreamBuilder<QuerySnapshot>(
         stream: hisRef
             .where('create_date', isLessThanOrEqualTo: DateTime.now())
@@ -100,16 +87,18 @@ class HomePresenter extends Presenter {
           if (!snapshot.hasData) {
             return Text("Loading...");
           }
+          if (snapshot.data.docs.where(
+                  (element) => element.data()['email'] == inputData().email) !=
+              null) {
+            return ListView.builder(
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  final DocumentSnapshot _doc = snapshot.data.docs[index];
 
-          return ListView.builder(
-              itemCount: snapshot.data.docs.length,
-              itemBuilder: (context, index) {
-                final DocumentSnapshot _doc = snapshot.data.docs[index];
-                if (_doc.data()['email'] == userData().email) {
                   _bookingModel = booking(_doc);
                   debugPrint(
                       'thời gian khởi tạo : ${_bookingModel.createDate.toDate()}');
-
+                  view.updateSate(); //TODO: mai test 1 bản ghi mới
                   return ItemRecentHisView(
                     model: _bookingModel,
                     press: () async {
@@ -120,10 +109,10 @@ class HomePresenter extends Presenter {
                       ));
                     },
                   );
-                } else {
-                  return Text("Không có thông tin đặt lịch nào ....");
-                }
-              });
+                });
+          } else {
+            return Text("Không có thông tin đặt lịch nào ....");
+          }
         });
   }
 
