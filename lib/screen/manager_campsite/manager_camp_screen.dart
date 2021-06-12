@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/screen/manager_campsite/manager_camp_presenter.dart';
 import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
+import 'package:yuru_camp/screen/manager_your_campsite/mng_your_camp_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 
 class MngCampScreen extends StatefulWidget {
@@ -9,17 +10,12 @@ class MngCampScreen extends StatefulWidget {
   _MngCampScreenState createState() => _MngCampScreenState();
 }
 
-class _MngCampScreenState extends State<MngCampScreen> {
-  CollectionReference getUser =
-      FirebaseFirestore.instance.collection('manager');
-  CollectionReference getCampsite =
-      FirebaseFirestore.instance.collection('campsite');
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  User user;
+class _MngCampScreenState extends State<MngCampScreen> implements Contract {
+  ManagerCampPresenter _presenter;
 
   @override
   void initState() {
-    inputData();
+    _presenter = ManagerCampPresenter(context, this);
     super.initState();
   }
 
@@ -31,15 +27,15 @@ class _MngCampScreenState extends State<MngCampScreen> {
         title: Text(''),
         leading: Container(),
       ),
-      body: null ?? DfMngCampScreen(),
+      body: _presenter.mngModel?.campName == null ||
+              _presenter.mngModel.campName.isEmpty
+          ? DfMngCampScreen()
+          : MngYourCampScreen(),
     );
   }
 
-  void inputData() {
-    user = auth.currentUser;
-    final email = user.email;
-    print(email);
+  @override
+  void updateSate() {
+    setState(() {});
   }
-
-
 }
