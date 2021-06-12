@@ -98,10 +98,11 @@ class HomePresenter extends Presenter {
                   _bookingModel = booking(_doc);
                   debugPrint(
                       'thời gian khởi tạo : ${_bookingModel.createDate.toDate()}');
-                  view.updateSate(); //TODO: mai test 1 bản ghi mới
+
                   return ItemRecentHisView(
                     model: _bookingModel,
                     press: () async {
+                      view.updateSate();//TODO: mai test 1 bản ghi mới
                       await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => HisDetailsScreen(
                           model: _bookingModel,
