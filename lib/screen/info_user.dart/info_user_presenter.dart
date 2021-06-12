@@ -16,17 +16,9 @@ class InfoUserPresenter extends Presenter {
 
   @override
   void init() {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     getData();
-    // });
-  }
-
-  String authData() {
-    final User user = auth.currentUser;
-    print('info: ${user.email} ');
-    print('info: ${user.uid} ');
-
-    return user.email;
+    });
   }
 
   UserModel user(DocumentSnapshot doc) {
