@@ -33,7 +33,9 @@ class UserInfoItemView extends StatelessWidget {
           Expanded(
             flex: 7,
             child: Text(
-              textInfo ?? 'Thiết lập ngay',
+              textInfo.isEmpty || textInfo == null
+                  ? 'Thiết lập ngay'
+                  : textInfo,
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 14),
             ),

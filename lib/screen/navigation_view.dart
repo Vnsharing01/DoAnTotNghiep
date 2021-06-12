@@ -24,12 +24,6 @@ class _NavigationViewState extends State<NavigationView> {
   ];
 
   @override
-  void initState() {
-    inputData();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pageOptions[_selectIndex],
@@ -66,12 +60,5 @@ class _NavigationViewState extends State<NavigationView> {
       _selectIndex = index;
     });
   }
-
-  void inputData() {
-    final User  user = auth.currentUser;
-    final email = user.email;
-    print(email);
-  }
-
 
 }

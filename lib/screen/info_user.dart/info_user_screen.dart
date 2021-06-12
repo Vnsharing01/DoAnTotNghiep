@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
-import 'package:yuru_camp/model/user_model.dart';
 
-import 'package:yuru_camp/screen/edit_info_user/edt_info_user_screen.dart';
 
-import 'package:yuru_camp/screen/login/login_screen.dart';
+import 'package:yuru_camp/screen/info_user.dart/info_user_presenter.dart';
 import 'package:yuru_camp/styles/color.dart';
+import 'package:yuru_camp/styles/styles.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
 import 'user_info_item_view.dart';
@@ -19,29 +16,12 @@ class InfoUserScreen extends StatefulWidget {
 }
 
 class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
-  // InfoUserPresenter _presenter;
-
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  User user;
-  UserModel userData;
-
-  // Stream getUserStream =
-  //     FirebaseFirestore.instance.collection('user').doc().snapshots();
-  CollectionReference getUser = FirebaseFirestore.instance.collection('user');
+  InfoUserPresenter _presenter;
 
   @override
   void initState() {
-    inputData();
-
+    _presenter = InfoUserPresenter(context, this);
     super.initState();
-  }
-
-  void inputData() {
-    user = auth.currentUser;
-    final email = user.email;
-    getUser.doc(email).get();
-    print(email);
-    print(getUser.doc(email).get());
   }
 
   @override
@@ -55,13 +35,8 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
         leading: Container(),
         actions: [
           PopupMenuButton<int>(
-            onSelected: (item) => _onSelected(context, item),
-            itemBuilder: (context) => [
-              PopupMenuItem<int>(
-                value: 1,
-                child: Text('Đăng Xuất'),
-              ),
-            ],
+            onSelected: _presenter.onSelect,
+            itemBuilder: _presenter.itemBuild,
             icon: Icon(
               Icons.settings,
               color: colorWhite,
@@ -89,19 +64,31 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image(
-                            image: AssetImage(
-                              'assets/images/default_avatar.png',
-                            ),
-                            width: 62,
-                            height: 62,
-                          ),
+                          child: 
+                          _presenter.userModel?.avatar == null ||
+                                  _presenter.userModel.avatar.isEmpty
+                              ? 
+                              Image(
+                                  image: AssetImage(
+                                    'assets/images/default_avatar.png',
+                                  ),
+                                  width: 62,
+                                  height: 62,
+                                )
+                              : 
+                              Image(
+                                  image: NetworkImage(
+                                    _presenter.userModel?.avatar,
+                                  ),
+                                  width: 62,
+                                  height: 62,
+                                ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
-                            user.email,
-                            style: TextStyle(
+                            _presenter.userModel?.email ?? '-----',
+                            style: Styles.copyStyle(
                               color: colorTvWhite,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -114,38 +101,33 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
                 ],
               ),
             ),
+           
             Column(
               children: [
                 UserInfoItemView(
                   title: 'Tên:',
-                  textInfo: user.displayName ?? 'cập nhật ngay',
+                  textInfo: _presenter.userModel?.name ?? '-----' ,
                 ),
                 UserInfoItemView(
                   title: 'Email:',
-                  textInfo: user.email ?? 'cập nhật ngay',
+                  textInfo: _presenter.userModel?.email?? '-----',
                 ),
                 UserInfoItemView(
                   title: 'Giới tính:',
-                  textInfo: null ?? 'cập nhật ngay',
+                  textInfo: _presenter.userModel?.gender?? '-----',
                 ),
                 UserInfoItemView(
                   title: 'Số điện thoại:',
-                  textInfo: null ?? 'cập nhật ngay',
+                  textInfo: _presenter.userModel?.phone?? '-----',
                 ),
                 UserInfoItemView(
                   title: 'Ngày sinh:',
-                  textInfo: null ?? 'cập nhật ngay',
+                  textInfo: _presenter.userModel?.birth?? '-----',
                 ),
               ],
             ),
             BtnView(
-              press: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => EdtInfoUserScreen(),
-                  ),
-                );
-              },
+              press: _presenter.nextEditInfo,
               text: 'Chỉnh sửa thông tin',
               color: colorPrimary,
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
@@ -156,17 +138,7 @@ class _InfoUserScreenState extends State<InfoUserScreen> implements Contract {
     );
   }
 
-  _onSelected(BuildContext context, item) {
-    switch (item) {
-      case 1:
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
-            ),
-            (route) => false);
-        break;
-    }
-  }
+
 
   @override
   void updateSate() {
