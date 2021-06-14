@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/screen/edit_info_user/edt_info_user_presenter.dart';
 import 'package:yuru_camp/screen/info_user.dart/info_user_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 import 'package:yuru_camp/views/edt_info_view.dart';
 
 /// cập nhật thông tin người dùng
-class EdtInfoUserScreen extends StatelessWidget {
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _birthController = TextEditingController();
-  final _genderController = TextEditingController();
-  final _phoneController = TextEditingController();
+class EdtInfoUserScreen extends StatefulWidget {
+  @override
+  _EdtInfoUserScreenState createState() => _EdtInfoUserScreenState();
+}
+
+class _EdtInfoUserScreenState extends State<EdtInfoUserScreen>
+    implements Contract {
+  EditInfoUserPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = EditInfoUserPresenter(context, this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,24 +57,24 @@ class EdtInfoUserScreen extends StatelessWidget {
             ),
             EdtInfoView(
               title: 'Tên : ',
-              controller: _nameController,
+              controller: _presenter.nameController,
             ),
             EdtInfoView(
               title: 'Email : ',
-              controller: _emailController,
+              controller: _presenter.emailController,
               enabled: false,
             ),
             EdtInfoView(
               title: 'Giới tính : ',
-              controller: _genderController,
+              controller: _presenter.genderController,
             ),
             EdtInfoView(
               title: 'Ngày sinh : ',
-              controller: _birthController,
+              controller: _presenter.birthController,
             ),
             EdtInfoView(
               title: 'Điện thoại : ',
-              controller: _phoneController,
+              controller: _presenter.phoneController,
             ),
             BtnView(
               press: () {
@@ -85,5 +96,10 @@ class EdtInfoUserScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void updateSate() {
+    setState(() {});
   }
 }
