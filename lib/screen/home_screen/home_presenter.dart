@@ -23,17 +23,21 @@ class HomePresenter extends Presenter {
 
   /// truy xuất campsite
   Widget showCampsite() {
+    //TODO:: chỉnh lại code lấy db
+
     return StreamBuilder<QuerySnapshot>(
         stream: campRef.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Text("Loading...");
           }
+
           return ListView.builder(
               itemCount: 4,
               itemBuilder: (context, index) {
                 final DocumentSnapshot _doc = snapshot.data.docs[index];
                 _campsiteModel = campsite(_doc);
+
                 return ItemCampListHomeView(model: _campsiteModel);
               });
         });
@@ -80,21 +84,19 @@ class HomePresenter extends Presenter {
         stream: hisRef
             .where('create_date', isLessThanOrEqualTo: DateTime.now())
             .orderBy('create_date', descending: true)
-            .limit(1)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           debugPrint(' thời gian hiện tại : ${DateTime.now()}');
           if (!snapshot.hasData) {
             return Text("Loading...");
           }
-          if (snapshot.data.docs.where(
-                  (element) => element.data()['email'] == inputData().email) !=
-              null) {
-            return ListView.builder(
-                itemCount: snapshot.data.docs.length,
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot _doc = snapshot.data.docs[index];
 
+          return ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                final DocumentSnapshot _doc = snapshot.data.docs[index];
+                if (_doc.get('email') == inputData().email) {
                   _bookingModel = booking(_doc);
                   debugPrint(
                       'thời gian khởi tạo : ${_bookingModel.createDate.toDate()}');
@@ -102,7 +104,7 @@ class HomePresenter extends Presenter {
                   return ItemRecentHisView(
                     model: _bookingModel,
                     press: () async {
-                      view.updateSate();//TODO: mai test 1 bản ghi mới
+                      view.updateSate(); 
                       await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => HisDetailsScreen(
                           model: _bookingModel,
@@ -110,10 +112,10 @@ class HomePresenter extends Presenter {
                       ));
                     },
                   );
-                });
-          } else {
-            return Text("Không có thông tin đặt lịch nào ....");
-          }
+                } else {
+                  return Text("Không có thông tin đặt lịch nào ....");
+                }
+              });
         });
   }
 
