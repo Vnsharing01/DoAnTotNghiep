@@ -1,5 +1,6 @@
 import 'package:yuru_camp/styles/color.dart';
 import 'package:flutter/material.dart';
+import 'package:yuru_camp/styles/styles.dart';
 
 class RowInfoItemView extends StatelessWidget {
   /// tạo hàng cho bảng thống kê
@@ -26,7 +27,7 @@ class RowInfoItemView extends StatelessWidget {
             child: Text(
               title,
               maxLines: 1,
-              style: TextStyle(
+              style: Styles.copyStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -47,7 +48,7 @@ class RowInfoItemView extends StatelessWidget {
             child: Text(
               text,
               maxLines: 1,
-              style: TextStyle(
+              style: Styles.copyStyle(
                 fontSize: 16,
                 color: textColor,
                 fontWeight: weight,
