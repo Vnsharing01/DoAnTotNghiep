@@ -1,82 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:yuru_camp/screen/user_book_details/user_book_details_screen.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/screen/user_book_list/user_book_list_presenter.dart';
 
 import 'package:yuru_camp/styles/color.dart';
+/// màn danh sách lịch đặt của khách
+class UserBookListScreen extends StatefulWidget {
+  const UserBookListScreen({Key key, this.campName}) : super(key: key);
 
-class UserBookListScreen extends StatelessWidget {
+  final String campName;
+
+  @override
+  _UserBookListScreenState createState() => _UserBookListScreenState();
+}
+
+class _UserBookListScreenState extends State<UserBookListScreen>
+    implements Contract {
+  UserBookListPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = UserBookListPresenter(context, this);
+    _presenter.getCampName(campName: widget.campName);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: colorWhite,
-          title: Text(
-            'Danh sách đặt lịch',
-            style: TextStyle(
-              color: colorTvBlack,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-          ),
-          centerTitle: true,
-          leading: FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Image.asset('assets/icons/ic_back_black.png'),
+      appBar: AppBar(
+        backgroundColor: colorWhite,
+        title: Text(
+          'Danh sách đặt lịch',
+          style: TextStyle(
+            color: colorTvBlack,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
           ),
         ),
-        body: ListView.builder(
-          itemCount: 6,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => UserBookDetailsScreen(),
-                  ),
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                      child: Text('20/05/2021'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Chiriki higo',
-                          style: TextStyle(
-                            color: colorTvBlack,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          'Qua đêm',
-                          style: TextStyle(
-                            color: colorTvMain,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: colorDarkGray),
-                  ),
-                ),
-              ),
-            );
+        centerTitle: true,
+        leading: FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
           },
-        ));
+          child: Image.asset('assets/icons/ic_back_black.png'),
+        ),
+      ),
+      body: _presenter.selectUserBooking(campName: widget.campName),
+    );
+  }
+
+  @override
+  void updateSate() {
+    setState(() {});
   }
 }
