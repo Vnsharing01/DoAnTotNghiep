@@ -23,7 +23,6 @@ class HomePresenter extends Presenter {
 
   /// truy xuất campsite
   Widget showCampsite() {
-    //TODO:: chỉnh lại code lấy db
 
     return StreamBuilder<QuerySnapshot>(
         stream: campRef.snapshots(),
