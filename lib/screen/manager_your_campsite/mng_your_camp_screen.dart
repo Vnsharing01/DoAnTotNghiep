@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:yuru_camp/screen/user_book_list/user_book_list_screen.dart';
-import 'package:yuru_camp/screen/manager_default/mng_df_screen.dart';
-import 'package:yuru_camp/screen/manager_edit_camp_info/edit_camp_info_screen.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
+import 'package:yuru_camp/model/mng_camp_model.dart';
 import 'package:yuru_camp/styles/color.dart';
+import 'package:yuru_camp/styles/styles.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 
-import 'Content_info_item_view.dart';
+import 'views/item_info_addr_view.dart';
+import 'views/item_info_content_view.dart';
+import 'mng_your_camp_presenter.dart';
 
 /// màn hình khi có khu cắm trại
-class MngYourCampScreen extends StatelessWidget {
+class MngYourCampScreen extends StatefulWidget {
+  const MngYourCampScreen({
+    Key key,
+    this.mngModel,
+    this.campModel,
+  }) : super(key: key);
+  final MngCampModel mngModel;
+  final CampsiteModel campModel;
+  @override
+  _MngYourCampScreenState createState() => _MngYourCampScreenState();
+}
+
+class _MngYourCampScreenState extends State<MngYourCampScreen>
+    implements Contract {
+  MngYourCampPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = MngYourCampPresenter(context, this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,33 +42,28 @@ class MngYourCampScreen extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    child: Image(
-                      image: AssetImage('assets/images/default_avatar.png'),
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.contain,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.mngModel?.campName ?? '-----',
+                      style: Styles.copyStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'ABC Camp',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text('Abc def'),
-                      ],
+                    Text(
+                      widget.mngModel?.mngName ?? '-----',
+                      style: Styles.copyStyle(),
                     ),
-                  ),
-                ],
+                    Text(
+                      widget.mngModel?.email ?? '-----',
+                      style: Styles.copyStyle(),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -53,39 +72,20 @@ class MngYourCampScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Khách đặt lịch  ',
-                          style: TextStyle(
-                            color: colorTvMain,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '(4)',
-                          style: TextStyle(
-                            color: colorTvRed,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        )
-                      ],
+                  Text(
+                    'Khách đặt lịch  ',
+                    style: Styles.copyStyle(
+                      color: colorTvMain,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => UserBookListScreen(),
-                        ),
-                      );
-                    },
+                    onTap: () => _presenter.nextUserBookList(
+                        campName: widget.campModel.campName),
                     child: Text(
                       'Danh Sách ',
-                      style: TextStyle(
+                      style: Styles.copyStyle(
                         color: colorPrimary,
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
@@ -94,38 +94,20 @@ class MngYourCampScreen extends StatelessWidget {
                   )
                 ],
               ),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: colorDarkGray,
-                  ),
-                  bottom: BorderSide(
-                    color: colorDarkGray,
-                  ),
-                ),
-              ),
+              decoration: buildBoxDecoration(),
             ),
             Container(
               padding: EdgeInsets.all(18),
               width: double.infinity,
               child: Text(
                 'Thông tin khu cắm trại',
-                style: TextStyle(
-                  color: colorTvMain,
+                style: Styles.copyStyle(
+                  color: colorTvRed,
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
               ),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: colorDarkGray,
-                  ),
-                  bottom: BorderSide(
-                    color: colorDarkGray,
-                  ),
-                ),
-              ),
+              decoration: buildBoxDecoration(),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
@@ -136,39 +118,45 @@ class MngYourCampScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       'Ảnh',
-                      style: TextStyle(
+                      style: Styles.copyStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: buildImage(image: 'assets/images/tamdao.jpg'),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child:
-                            buildImage(image: 'assets/images/bavi_banner.jpg'),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: buildImage(
-                            image: 'assets/images/banrom_banner.jpg'),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: buildImage(
-                            image: 'assets/images/dongmo_banner.jpg'),
-                      ),
-                    ],
-                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 370,
+                    child: widget.campModel?.images == null ||
+                            widget.campModel.images.isEmpty
+                        ? Text('không có ảnh')
+                        : GridView.builder(
+                            shrinkWrap: false,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                            ),
+                            itemCount: widget.campModel.images.length,
+                            itemBuilder: (context, index) {
+                              String image = widget.campModel?.images[index];
+                              return Container(
+                                margin: EdgeInsets.all(8),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    image,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              );
+                            },
+                          ),
+                  )
                 ],
               ),
             ),
@@ -182,39 +170,43 @@ class MngYourCampScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       'Thông tin địa chỉ',
-                      style: TextStyle(
+                      style: Styles.copyStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
                     ),
                   ),
-                  _infoAddressText(title: 'Địa Chỉ: ', text: 'abc,xyz,ghj'),
-                  _infoAddressText(title: 'Hotline: ', text: '0123456789'),
-                  _infoAddressText(title: 'Email: ', text: 'abc@camp.vn'),
-                  _infoAddressText(title: 'Fanpage: ', text: 'fb/abccamp.vn'),
-                  _infoAddressText(title: 'Website: ', text: 'AbcCamp.vn'),
+                  ItemInfoAddressView(
+                    title: 'Địa Chỉ: ',
+                    text: widget.campModel?.address ?? '-----',
+                  ),
+                  ItemInfoAddressView(
+                    title: 'Hotline: ',
+                    text: widget.campModel?.hotline.toString() ?? '-----',
+                  ),
+                  ItemInfoAddressView(
+                    title: 'Email: ',
+                    text: widget.campModel?.email ?? '-----',
+                  ),
+                  ItemInfoAddressView(
+                    title: 'Fanpage: ',
+                    text: widget.campModel?.fanpage ?? '-----',
+                  ),
+                  ItemInfoAddressView(
+                    title: 'Website: ',
+                    text: widget.campModel?.web ?? '-----',
+                  ),
                 ],
               ),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: colorDarkGray,
-                  ),
-                  bottom: BorderSide(
-                    color: colorDarkGray,
-                  ),
-                ),
-              ),
+              decoration: buildBoxDecoration(),
             ),
-            ContentInfoItemView(
+            ItemInfoContentView(
               title: 'Giới thiệu',
-              contentText:
-                  'sdfghjkasdfghjksdfghjklasdfghjkasdfghjkqwerqwsdfvbnweugdcbhnawidahjnowaisbjklciub asdvtybwiueayi uawv yaiudhoieweoirybwcwneirtbwexniq',
+              contentText: widget.campModel?.intro ?? '-----',
             ),
-            ContentInfoItemView(
+            ItemInfoContentView(
               title: 'Thông tin dịch vụ',
-              contentText:
-                  'sdfghjkasdfghjksdfghjklasdfghjkasdfghjkqwerqwsdfvbnweugdcbhnawidahjnowaisbjklciub',
+              contentText: widget.campModel?.service ?? '-----',
             ),
             Container(
               margin: EdgeInsets.all(18),
@@ -223,14 +215,8 @@ class MngYourCampScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: BtnView(
-                      press: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) => DfMngCampScreen(),
-                          ),
-                          (route) => false,
-                        );
-                      },
+                      press: () =>
+                          _presenter.deleteCampsite(widget.campModel.campName),
                       text: 'xóa khu cắm trại',
                       color: colorDarkGray,
                       textColor: colorTvBlack,
@@ -239,13 +225,7 @@ class MngYourCampScreen extends StatelessWidget {
                   SizedBox(width: 20),
                   Expanded(
                     child: BtnView(
-                      press: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (contexxt) => EditCampInfo(),
-                          ),
-                        );
-                      },
+                      press: _presenter.nextEditCamp,
                       text: 'Chỉnh sửa nội dung',
                       color: colorPrimary,
                     ),
@@ -259,43 +239,17 @@ class MngYourCampScreen extends StatelessWidget {
     );
   }
 
-  RichText _infoAddressText({String title, String text}) {
-    return RichText(
-      text: TextSpan(children: [
-        TextSpan(
-          text: title,
-          style: TextStyle(
-            color: colorTvBlack,
-            fontWeight: FontWeight.w600,
-            fontSize: 15,
-          ),
-        ),
-        TextSpan(
-          text: text,
-          style: TextStyle(
-            color: colorTvMain,
-            fontSize: 14,
-          ),
-        ),
-      ]),
+  BoxDecoration buildBoxDecoration() {
+    return BoxDecoration(
+      border: Border(
+        top: BorderSide(color: colorDarkGray),
+        bottom: BorderSide(color: colorDarkGray),
+      ),
     );
   }
 
-  Container buildImage({String image}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.asset(
-          image,
-          width: double.infinity,
-          height: 130,
-          fit: BoxFit.cover,
-        ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    );
+  @override
+  void updateSate() {
+    setState(() {});
   }
 }

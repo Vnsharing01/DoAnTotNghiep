@@ -24,13 +24,15 @@ class _MngCampScreenState extends State<MngCampScreen> implements Contract {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorWhite,
-        title: Text(''),
         leading: Container(),
       ),
       body: _presenter.mngModel?.campName == null ||
               _presenter.mngModel.campName.isEmpty
           ? DfMngCampScreen()
-          : MngYourCampScreen(),
+          : MngYourCampScreen(
+              mngModel: _presenter?.mngModel,
+              campModel: _presenter?.campModel,
+            ),
     );
   }
 
