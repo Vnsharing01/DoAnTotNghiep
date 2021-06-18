@@ -29,7 +29,7 @@ class _HistoryScreenState extends State<HistoryScreen> implements Contract {
           },
           child: Image.asset('assets/icons/ic_back_black.png'),
         ),
-        title: Text('Lịch sử cắm trại'),
+        title: Text('Lịch sử đặt lịch'),
         centerTitle: true,
       ),
       body: GestureDetector(
@@ -60,7 +60,7 @@ class _HistoryScreenState extends State<HistoryScreen> implements Contract {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: BtnItemView(
                       press: _presenter.showHisByDate,
                       text: 'Tìm',
