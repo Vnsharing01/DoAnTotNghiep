@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/model/user_model.dart';
 import 'package:yuru_camp/screen/edit_info_user/edt_info_user_presenter.dart';
 import 'package:yuru_camp/screen/info_user.dart/info_user_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
@@ -9,6 +10,10 @@ import 'package:yuru_camp/views/edt_info_view.dart';
 
 /// cập nhật thông tin người dùng
 class EdtInfoUserScreen extends StatefulWidget {
+  const EdtInfoUserScreen({Key key, this.model}) : super(key: key);
+
+  final UserModel model;
+
   @override
   _EdtInfoUserScreenState createState() => _EdtInfoUserScreenState();
 }
@@ -20,6 +25,11 @@ class _EdtInfoUserScreenState extends State<EdtInfoUserScreen>
   @override
   void initState() {
     _presenter = EditInfoUserPresenter(context, this);
+    _presenter.nameController.text = widget.model.name;
+    _presenter.emailController.text = widget.model.email;
+    _presenter.birthController.text = widget.model.birth;
+    _presenter.genderController.text = widget.model.gender;
+    _presenter.phoneController.text = widget.model.phone;
     super.initState();
   }
 
@@ -77,17 +87,7 @@ class _EdtInfoUserScreenState extends State<EdtInfoUserScreen>
               controller: _presenter.phoneController,
             ),
             BtnView(
-              press: () {
-                Fluttertoast.showToast(
-                  msg: 'Cập nhật thành công',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                );
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => InfoUserScreen()),
-                  (route) => false,
-                );
-              },
+              press: _presenter.updateInfo,
               text: 'Cập nhật thông tin',
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               color: colorPrimary,

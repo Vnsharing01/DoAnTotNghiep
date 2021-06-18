@@ -24,7 +24,7 @@ class InfoUserPresenter extends Presenter {
   UserModel user(DocumentSnapshot doc) {
     return UserModel(
       email: doc.data()['email'],
-      name: doc.data()['name'],
+      name: doc.data()['user_name'],
       avatar: doc.data()['avatar'],
       birth: doc.data()['birth'],
       gender: doc.data()['gender'],
@@ -72,7 +72,7 @@ class InfoUserPresenter extends Presenter {
   void nextEditInfo() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EdtInfoUserScreen(),
+        builder: (context) => EdtInfoUserScreen(model: userModel),
       ),
     );
   }
