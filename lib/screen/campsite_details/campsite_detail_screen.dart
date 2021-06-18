@@ -183,7 +183,7 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
                               ),
                             );
                           },
-                          text: 'chỉ đường',
+                          text: 'bản đồ',
                           color: Colors.green,
                         ),
                       ],

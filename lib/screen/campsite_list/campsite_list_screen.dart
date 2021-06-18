@@ -58,7 +58,7 @@ class _CampsiteListScreenState extends State<CampsiteListScreen>
                       ),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: BtnItemView(
                         press: () {
                           _presenter.searchArea(context);
