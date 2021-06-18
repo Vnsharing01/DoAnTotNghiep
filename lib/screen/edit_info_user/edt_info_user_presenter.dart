@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
 import 'package:yuru_camp/model/user_model.dart';
-import 'package:yuru_camp/screen/info_user.dart/info_user_screen.dart';
 import 'package:yuru_camp/screen/navigation_view.dart';
 
 //TODO : tạm xong update info , chưa làm update avatar

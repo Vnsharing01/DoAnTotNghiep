@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/model/user_model.dart';
 import 'package:yuru_camp/screen/edit_info_user/edt_info_user_presenter.dart';
-import 'package:yuru_camp/screen/info_user.dart/info_user_screen.dart';
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 import 'package:yuru_camp/views/edt_info_view.dart';
