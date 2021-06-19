@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
+import 'package:yuru_camp/screen/manager_edit_camp_info/edit_camp_info_presenter.dart';
 
 import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
@@ -10,26 +13,36 @@ import 'package:yuru_camp/views/edt_info_view.dart';
 import 'view/image_item_view.dart';
 import 'view/info_content_view.dart';
 
-  /// chỉnh sửa nội dung campsite
+/// chỉnh sửa nội dung campsite
 class EditCampInfo extends StatefulWidget {
+  const EditCampInfo({Key key, this.model}) : super(key: key);
+
+  final CampsiteModel model;
+
   @override
   _EditCampInfoState createState() => _EditCampInfoState();
 }
 
-final campNameController = TextEditingController();
-final addressController = TextEditingController();
-final areaController = TextEditingController();
-final hotLineController = TextEditingController();
-final fanPageController = TextEditingController();
-final webController = TextEditingController();
-
-final introController = TextEditingController();
-final serviceController = TextEditingController();
-
 File _image1, _image2, _image3, _image4;
 final picker = ImagePicker();
 
-class _EditCampInfoState extends State<EditCampInfo> {
+class _EditCampInfoState extends State<EditCampInfo> implements Contract {
+  EditCampInfoPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = EditCampInfoPresenter(context, this);
+    _presenter.campNameController.text = widget.model.campName;
+    _presenter.addressController.text = widget.model.address;
+    _presenter.areaController.text = widget.model.area;
+    _presenter.hotLineController.text = widget.model.hotline.toString();
+    _presenter.fanPageController.text = widget.model.fanpage;
+    _presenter.webController.text = widget.model.web;
+    _presenter.introController.text = widget.model.intro;
+    _presenter.serviceController.text = widget.model.service;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,27 +67,27 @@ class _EditCampInfoState extends State<EditCampInfo> {
             children: [
               EdtInfoView(
                 title: 'Camp Name : ',
-                controller: campNameController,
+                controller: _presenter.campNameController,
               ),
               EdtInfoView(
                 title: 'Địa chỉ : ',
-                controller: addressController,
+                controller: _presenter.addressController,
               ),
               EdtInfoView(
                 title: 'Khu vực : ',
-                controller: areaController,
+                controller: _presenter.areaController,
               ),
               EdtInfoView(
                 title: 'Hotline : ',
-                controller: hotLineController,
+                controller: _presenter.hotLineController,
               ),
               EdtInfoView(
                 title: 'Fanpage : ',
-                controller: fanPageController,
+                controller: _presenter.fanPageController,
               ),
               EdtInfoView(
                 title: 'Web : ',
-                controller: webController,
+                controller: _presenter.webController,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,19 +103,16 @@ class _EditCampInfoState extends State<EditCampInfo> {
               ),
               InfoContentView(
                 title: 'Giới thiệu',
-                controller: introController,
+                controller: _presenter.introController,
                 inputAction: TextInputAction.next,
               ),
-              
               InfoContentView(
                 title: 'Dịch vụ',
-                controller: serviceController,
+                controller: _presenter.serviceController,
                 inputAction: TextInputAction.done,
               ),
               BtnView(
-                press: () {
-                  Navigator.of(context).pop(true);
-                },
+                press: () => _presenter.updateInfo(widget.model.campName),
                 text: 'cập nhật nội dung',
                 color: colorPrimary,
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -116,20 +126,25 @@ class _EditCampInfoState extends State<EditCampInfo> {
 
   Widget _rowImages({File image1, File image2}) {
     return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: ImageItemView(
-                        image: image1,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: ImageItemView(
-                        image: image2,
-                      ),
-                    ),
-                  ],
-                );
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: ImageItemView(
+            image: image1,
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: ImageItemView(
+            image: image2,
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void updateSate() {
+    setState(() {});
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/manager_edit_camp_info/edit_camp_info_screen.dart';
 import 'package:yuru_camp/screen/navigation_view.dart';
 import 'package:yuru_camp/screen/user_book_list/user_book_list_screen.dart';
@@ -22,10 +23,10 @@ class MngYourCampPresenter extends Presenter {
     );
   }
 
-  void nextEditCamp() async {
+  void nextEditCamp(CampsiteModel model) async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EditCampInfo(),
+        builder: (context) => EditCampInfo( model: model),
       ),
     );
   }

@@ -225,7 +225,7 @@ class _MngYourCampScreenState extends State<MngYourCampScreen>
                   SizedBox(width: 20),
                   Expanded(
                     child: BtnView(
-                      press: _presenter.nextEditCamp,
+                      press: ()=> _presenter.nextEditCamp(widget.campModel),
                       text: 'Chỉnh sửa nội dung',
                       color: colorPrimary,
                     ),
