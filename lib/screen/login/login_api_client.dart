@@ -66,7 +66,7 @@ class LoginApiClient {
       debugPrint('googleSignIn ${user.displayName}');
 
       var userData = {
-        'name': user.displayName,
+        'user_name': user.displayName,
         'avatar': user.photoURL,
         'email': user.email,
         'gender': '',
@@ -78,7 +78,7 @@ class LoginApiClient {
       
       createUser.doc(user.email).get().then((doc) {
         if (doc.exists) {
-          doc.reference.update(userData);
+          doc.reference.get();
         } else {
           // thêm user vào fireStore
           createUser.doc(user.email).set(userData);
