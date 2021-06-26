@@ -19,11 +19,18 @@ class HomePresenter extends Presenter {
       FirebaseFirestore.instance.collection('campsite');
   CollectionReference hisRef = FirebaseFirestore.instance.collection('booking');
   CampsiteModel _campsiteModel;
-  BookingModel _bookingModel;
+  BookingModel bookingModel;
+
+  @override
+  void init() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      showHisRecent();
+    });
+    super.init();
+  }
 
   /// truy xuất campsite
   Widget showCampsite() {
-
     return StreamBuilder<QuerySnapshot>(
         stream: campRef.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -77,43 +84,70 @@ class HomePresenter extends Presenter {
     );
   }
 
+// đề phòng , TODO: 1/7 test lại nếu lại lỗi
+  BookingModel showHisRecent() {
+    DateTime _now = DateTime.now();
+    DateTime _start = DateTime(_now.year, _now.month, _now.day - 6, 0, 0, 0);
+    DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);
+
+    hisRef
+        .where('create_date', isLessThan: DateTime.now())
+        .orderBy('create_date', descending: false)
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((doc) {
+        if (doc.exists) {
+          if (doc.get('email') == inputData().email) {
+            bookingModel = booking(doc);
+            view.updateSate();
+            debugPrint(
+                'thời gian khởi tạo : ${bookingModel.createDate.toDate().day}');
+          } else {
+            return print('Chưa có thông ti đặt lịch nào...');
+          }
+        } else {
+          return print('Loadding...');
+        }
+      });
+    });
+    return bookingModel;
+  }
+
   /// truy xuất lịch đặt gần nhất
   Widget showrecentHisBooking() {
     return StreamBuilder<QuerySnapshot>(
         stream: hisRef
-            .where('create_date', isLessThanOrEqualTo: DateTime.now())
-            .orderBy('create_date', descending: true)
+            .where('create_date', isLessThan: DateTime.now())
+            .orderBy('create_date', descending: false)
+            .limitToLast(1)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           debugPrint(' thời gian hiện tại : ${DateTime.now()}');
           if (!snapshot.hasData) {
             return Text("Loading...");
           }
-
           return ListView.builder(
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 1,
+              itemCount: snapshot.data.docs.length,
               itemBuilder: (context, index) {
                 final DocumentSnapshot _doc = snapshot.data.docs[index];
                 if (_doc.get('email') == inputData().email) {
-                  _bookingModel = booking(_doc);
-                  debugPrint(
-                      'thời gian khởi tạo : ${_bookingModel.createDate.toDate()}');
-
-                  return ItemRecentHisView(
-                    model: _bookingModel,
-                    press: () async {
-                      view.updateSate(); 
-                      await Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HisDetailsScreen(
-                          model: _bookingModel,
-                        ),
-                      ));
-                    },
-                  );
-                } else {
-                  return Text("Không có thông tin đặt lịch nào ....");
+                  bookingModel = booking(_doc);
                 }
+                debugPrint('create_date: ${bookingModel?.createDate?.toDate()}');
+
+                return bookingModel?.email != inputData().email
+                    ? Text("Không có thông tin đặt lịch nào ....")
+                    : ItemRecentHisView(
+                        model: bookingModel,
+                        press: () async {
+                          await Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HisDetailsScreen(
+                              model: bookingModel,
+                            ),
+                          ));
+                        },
+                      );
               });
         });
   }

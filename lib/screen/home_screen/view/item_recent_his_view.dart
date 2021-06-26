@@ -93,6 +93,22 @@ class ItemRecentHisView extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Row(
+                      children: [
+                        Text(
+                          'thời gian đặt: ',
+                          style: Styles.copyStyle(),
+                        ),
+                        Expanded(
+                          child: Text(
+                            model.createDate.toDate().toString() ?? '',
+                            style: Styles.copyStyle(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

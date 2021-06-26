@@ -66,6 +66,19 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
                 height: 164,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: _presenter.showrecentHisBooking(),
+                // _presenter.bookingModel?.email !=
+                //         _presenter.inputData().email
+                //     ? Text('không có dữ liệu...')
+                //     : ItemRecentHisView(
+                //         model: _presenter.bookingModel,
+                //         press: () async {
+                //           await Navigator.of(context).push(MaterialPageRoute(
+                //             builder: (context) => HisDetailsScreen(
+                //               model: _presenter.bookingModel,
+                //             ),
+                //           ));
+                //         },
+                //       ),
               ),
               HomeTitleMoreItemView(
                 title: 'Một số khu cắm trại',
