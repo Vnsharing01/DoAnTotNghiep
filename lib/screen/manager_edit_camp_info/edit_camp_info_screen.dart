@@ -89,18 +89,7 @@ class _EditCampInfoState extends State<EditCampInfo> implements Contract {
                 title: 'Web : ',
                 controller: _presenter.webController,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Thêm Ảnh',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  _rowImages(image1: _image1, image2: _image2),
-                  _rowImages(image1: _image3, image2: _image4),
-                ],
-              ),
+             
               InfoContentView(
                 title: 'Giới thiệu',
                 controller: _presenter.introController,
@@ -124,24 +113,7 @@ class _EditCampInfoState extends State<EditCampInfo> implements Contract {
     );
   }
 
-  Widget _rowImages({File image1, File image2}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Expanded(
-          child: ImageItemView(
-            image: image1,
-          ),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: ImageItemView(
-            image: image2,
-          ),
-        ),
-      ],
-    );
-  }
+ 
 
   @override
   void updateSate() {

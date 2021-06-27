@@ -5,7 +5,7 @@ import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/base/presenter.dart';
 import 'package:yuru_camp/screen/navigation_view.dart';
 
-///TODO: tạm xong update info campsite . thiếu update ảnh
+
 class EditCampInfoPresenter extends Presenter {
   EditCampInfoPresenter(BuildContext context, Contract view)
       : super(context, view);
