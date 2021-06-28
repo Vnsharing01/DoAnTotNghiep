@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yuru_camp/screen/login/login_screen.dart';
 
+//TODO: test thêm data vào bảng account
 class SignUpApiClient {
   CollectionReference createUser =
       FirebaseFirestore.instance.collection('user');
@@ -39,6 +40,7 @@ class SignUpApiClient {
           .catchError(
             (error) => print("Failed to add user: $error"),
           );
+
       toastInfo(msg: 'Đăng kí thành công');
       Navigator.pushAndRemoveUntil(
         context,
