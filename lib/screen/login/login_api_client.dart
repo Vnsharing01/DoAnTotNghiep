@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yuru_camp/screen/navigation_view.dart';
 
@@ -8,6 +9,8 @@ class LoginApiClient {
   /// firestore
   CollectionReference createUser =
       FirebaseFirestore.instance.collection('user');
+
+  String errorText;
 
   /// login with email-password
   Future loginUser({
@@ -29,12 +32,18 @@ class LoginApiClient {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-        //thêm dialog thông báo lỗi
-
+        return Fluttertoast.showToast(
+          msg: 'không tìm thấy email',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
-        //thêm dialog thông báo lỗi
-
+        return Fluttertoast.showToast(
+          msg: 'sai mật khẩu',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
       }
     }
   }
@@ -49,7 +58,6 @@ class LoginApiClient {
     if (googleSignInAccount == null) {
       final User currentUser = _firebaseAuth.currentUser;
 
-      
       return currentUser;
     } else {
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -75,7 +83,6 @@ class LoginApiClient {
         'password': '',
       };
 
-      
       createUser.doc(user.email).get().then((doc) {
         if (doc.exists) {
           doc.reference.get();

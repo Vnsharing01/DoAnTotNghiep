@@ -86,10 +86,6 @@ class HomePresenter extends Presenter {
 
 // đề phòng , TODO: 1/7 test lại nếu lại lỗi
   BookingModel showHisRecent() {
-    DateTime _now = DateTime.now();
-    DateTime _start = DateTime(_now.year, _now.month, _now.day - 6, 0, 0, 0);
-    DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);
-
     hisRef
         .where('create_date', isLessThan: DateTime.now())
         .orderBy('create_date', descending: false)
@@ -134,7 +130,8 @@ class HomePresenter extends Presenter {
                 if (_doc.get('email') == inputData().email) {
                   bookingModel = booking(_doc);
                 }
-                debugPrint('create_date: ${bookingModel?.createDate?.toDate()}');
+                debugPrint(
+                    'create_date: ${bookingModel?.createDate?.toDate()}');
 
                 return bookingModel?.email != inputData().email
                     ? Text("Không có thông tin đặt lịch nào ....")
