@@ -10,6 +10,8 @@ class LoginSignupTxtFView extends StatefulWidget {
     this.typePassword = false,
     this.showPass,
     this.validator,
+    this.textInputAction,
+    this.keyboardType,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -19,6 +21,9 @@ class LoginSignupTxtFView extends StatefulWidget {
   final bool typePassword;
   final Widget showPass;
   final FormFieldValidator<String> validator;
+
+  final TextInputAction textInputAction;
+  final TextInputType keyboardType;
 
   @override
   _LoginSignupTxtFViewState createState() => _LoginSignupTxtFViewState();
@@ -51,9 +56,11 @@ class _LoginSignupTxtFViewState extends State<LoginSignupTxtFView> {
             validator: widget.validator,
             maxLines: 1,
             obscureText: widget.typePassword,
+            keyboardType: widget.keyboardType,
+            textInputAction: widget.textInputAction ?? TextInputAction.next,
           ),
         ),
-        if (_msgError != null) // cop code cty cần xem lại để hiểu
+        if (_msgError != null) 
           Text(
             _msgError,
             maxLines: 1,

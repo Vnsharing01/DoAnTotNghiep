@@ -13,6 +13,7 @@ class SignUpApiClient {
     String email,
     String psw,
     String name,
+    String phone,
     BuildContext context,
   }) async {
     try {
@@ -34,7 +35,7 @@ class SignUpApiClient {
             'avatar': null,
             'gender': null,
             'birth': null,
-            'phone': null,
+            'phone': int.tryParse(phone),
           })
           .then((value) => print("User Added"))
           .catchError(
@@ -66,7 +67,7 @@ class SignUpApiClient {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.CENTER,
     );
   }
 }

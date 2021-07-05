@@ -103,6 +103,15 @@ class _SignupScreenState extends State<SignupScreen> implements Contract {
                           validator: Validators.nameValidator,
                         ),
 
+                        /// phone number
+                        LoginSignupTxtFView(
+                          key: _presenter.phoneKey,
+                          controller: _presenter.phoneController,
+                          hintText: 'Phone',
+                          icon: Icon(Icons.phone),
+                          keyboardType: TextInputType.number
+                        ),
+
                         /// password
                         LoginSignupTxtFView(
                           key: _presenter.passKey,
@@ -115,6 +124,7 @@ class _SignupScreenState extends State<SignupScreen> implements Contract {
                             onPressed: _presenter.showPass,
                           ),
                           validator: Validators.passValidator,
+                          textInputAction: TextInputAction.done
                         ),
                       ],
                     ),

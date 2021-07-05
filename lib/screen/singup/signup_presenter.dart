@@ -12,11 +12,12 @@ class SignupPresenter extends Presenter {
   final mailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final confimController = TextEditingController();
+  final phoneController = TextEditingController();
 
   final dynamic emailKey = GlobalKey();
   final dynamic passKey = GlobalKey();
   final dynamic nameKey = GlobalKey();
+  final dynamic phoneKey = GlobalKey();
 
   SignUpApiClient _apiClient = SignUpApiClient();
 
@@ -46,6 +47,7 @@ class SignupPresenter extends Presenter {
           email: mailController.text.trim(),
           psw: passwordController.text,
           name: usernameController.text,
+          phone: phoneController.text,
           context: context,
         );
         
