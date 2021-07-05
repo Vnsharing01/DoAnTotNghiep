@@ -24,9 +24,7 @@ class _HistoryScreenState extends State<HistoryScreen> implements Contract {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: _presenter.onBack,
           child: Image.asset('assets/icons/ic_back_black.png'),
         ),
         title: Text('Lịch sử đặt lịch'),

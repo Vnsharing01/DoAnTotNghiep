@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
   @override
   void initState() {
     _presenter = HomePresenter(context, this);
+    
     super.initState();
   }
 
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
                 height: 164,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: _presenter.showrecentHisBooking(),
+                
               ),
               HomeTitleMoreItemView(
                 title: 'Một số khu cắm trại',
@@ -109,8 +111,6 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
 
   @override
   void updateSate() {
-    setState(() {
-      _presenter.showrecentHisBooking();
-    });
+    setState(() {});
   }
 }

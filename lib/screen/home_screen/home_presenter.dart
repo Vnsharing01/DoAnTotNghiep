@@ -24,7 +24,7 @@ class HomePresenter extends Presenter {
   @override
   void init() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      showHisRecent();
+      // showHisRecent();
     });
     super.init();
   }
@@ -84,33 +84,9 @@ class HomePresenter extends Presenter {
     );
   }
 
-// đề phòng , TODO: 1/7 test lại nếu lại lỗi
-  BookingModel showHisRecent() {
-    hisRef
-        .where('create_date', isLessThan: DateTime.now())
-        .orderBy('create_date', descending: false)
-        .get()
-        .then((snapshot) {
-      snapshot.docs.forEach((doc) {
-        if (doc.exists) {
-          if (doc.get('email') == inputData().email) {
-            bookingModel = booking(doc);
-            view.updateSate();
-            debugPrint(
-                'thời gian khởi tạo : ${bookingModel.createDate.toDate().day}');
-          } else {
-            return print('Chưa có thông ti đặt lịch nào...');
-          }
-        } else {
-          return print('Loadding...');
-        }
-      });
-    });
-    return bookingModel;
-  }
-
   /// truy xuất lịch đặt gần nhất
   Widget showrecentHisBooking() {
+    view.updateSate();
     return StreamBuilder<QuerySnapshot>(
         stream: hisRef
             .where('create_date', isLessThan: DateTime.now())

@@ -4,6 +4,7 @@ import 'package:yuru_camp/screen/campsite_map/campsite_map_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:yuru_camp/screen/navigation_view.dart';
 
 import '../../views/btn_item_view.dart';
 import 'view/info_item_view.dart';
@@ -21,7 +22,7 @@ class CampsiteDetailScreen extends StatefulWidget {
   _CampsiteDetailScreenState createState() => _CampsiteDetailScreenState();
 }
 
-//TODO :  tạo presenter 
+//TODO :  tạo presenter
 class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
   int position = 0;
   @override
@@ -34,7 +35,9 @@ class _CampsiteDetailScreenState extends State<CampsiteDetailScreen> {
         backgroundColor: Colors.transparent,
         leading: FlatButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => NavigationView()),
+                (route) => false);
           },
           child: Image.asset('assets/icons/ic_back_white.png'),
         ),
