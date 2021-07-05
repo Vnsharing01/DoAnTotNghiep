@@ -28,7 +28,7 @@ class InfoUserPresenter extends Presenter {
       avatar: doc.data()['avatar'],
       birth: doc.data()['birth'],
       gender: doc.data()['gender'],
-      phone: doc.data()['phone'],
+      phone: doc.data()['phone'].toString(),
     );
   }
 
