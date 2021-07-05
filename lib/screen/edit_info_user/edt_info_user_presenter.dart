@@ -6,7 +6,6 @@ import 'package:yuru_camp/base/presenter.dart';
 import 'package:yuru_camp/model/user_model.dart';
 import 'package:yuru_camp/screen/navigation_view.dart';
 
-//TODO : tạm xong update info , chưa làm update avatar
 class EditInfoUserPresenter extends Presenter {
   EditInfoUserPresenter(BuildContext context, Contract view)
       : super(context, view);

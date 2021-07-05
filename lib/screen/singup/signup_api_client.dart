@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yuru_camp/screen/login/login_screen.dart';
 
-//TODO: test thêm data vào bảng account
 class SignUpApiClient {
   CollectionReference createUser =
       FirebaseFirestore.instance.collection('user');

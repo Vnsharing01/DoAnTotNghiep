@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:yuru_camp/base/contract.dart';
 import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/manager_edit_camp_info/edit_camp_info_presenter.dart';
@@ -10,7 +8,6 @@ import 'package:yuru_camp/styles/color.dart';
 import 'package:yuru_camp/views/btn_view.dart';
 import 'package:yuru_camp/views/edt_info_view.dart';
 
-import 'view/image_item_view.dart';
 import 'view/info_content_view.dart';
 
 /// chỉnh sửa nội dung campsite
@@ -22,9 +19,6 @@ class EditCampInfo extends StatefulWidget {
   @override
   _EditCampInfoState createState() => _EditCampInfoState();
 }
-
-File _image1, _image2, _image3, _image4;
-final picker = ImagePicker();
 
 class _EditCampInfoState extends State<EditCampInfo> implements Contract {
   EditCampInfoPresenter _presenter;
