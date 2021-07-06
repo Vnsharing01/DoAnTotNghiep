@@ -23,9 +23,7 @@ class HomePresenter extends Presenter {
 
   @override
   void init() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // showHisRecent();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
     super.init();
   }
 
@@ -86,13 +84,12 @@ class HomePresenter extends Presenter {
 
   /// truy xuất lịch đặt gần nhất
   Widget showrecentHisBooking() {
+    DateTime _now = DateTime.now();
+    DateTime _start = DateTime(_now.year, _now.month, 1, 0, 0, 0);
+    DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);
     view.updateSate();
     return StreamBuilder<QuerySnapshot>(
-        stream: hisRef
-            .where('create_date', isLessThan: DateTime.now())
-            .orderBy('create_date', descending: false)
-            .limitToLast(1)
-            .snapshots(),
+        stream: hisRef.where('email', isEqualTo: inputData().email).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           debugPrint(' thời gian hiện tại : ${DateTime.now()}');
           if (!snapshot.hasData) {
@@ -100,16 +97,17 @@ class HomePresenter extends Presenter {
           }
           return ListView.builder(
               physics: NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data.docs.length,
+              itemCount: 1,
               itemBuilder: (context, index) {
                 final DocumentSnapshot _doc = snapshot.data.docs[index];
-                if (_doc.get('email') == inputData().email) {
-                  bookingModel = booking(_doc);
-                }
+
+                bookingModel = booking(_doc);
+
                 debugPrint(
                     'create_date: ${bookingModel?.createDate?.toDate()}');
 
-                return bookingModel?.email != inputData().email
+                return bookingModel.createDate.toDate().isAfter(_end) &&
+                        bookingModel.createDate.toDate().isBefore(_start)
                     ? Text("Không có thông tin đặt lịch nào ....")
                     : ItemRecentHisView(
                         model: bookingModel,
