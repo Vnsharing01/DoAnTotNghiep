@@ -18,12 +18,15 @@ class HomePresenter extends Presenter {
   CollectionReference campRef =
       FirebaseFirestore.instance.collection('campsite');
   CollectionReference hisRef = FirebaseFirestore.instance.collection('booking');
+
   CampsiteModel _campsiteModel;
   BookingModel bookingModel;
 
   @override
   void init() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getBooking();
+    });
     super.init();
   }
 
@@ -82,45 +85,40 @@ class HomePresenter extends Presenter {
     );
   }
 
-  /// truy xuất lịch đặt gần nhất
-  Widget showrecentHisBooking() {
+  /// truy xuất booking mới nhất
+  BookingModel getBooking() {
     DateTime _now = DateTime.now();
     DateTime _start = DateTime(_now.year, _now.month, 1, 0, 0, 0);
     DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);
-    view.updateSate();
-    return StreamBuilder<QuerySnapshot>(
-        stream: hisRef.where('email', isEqualTo: inputData().email).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          debugPrint(' thời gian hiện tại : ${DateTime.now()}');
-          if (!snapshot.hasData) {
-            return Text("Loading...");
-          }
-          return ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 1,
-              itemBuilder: (context, index) {
-                final DocumentSnapshot _doc = snapshot.data.docs[index];
 
-                bookingModel = booking(_doc);
+    FirebaseFirestore.instance
+        .collection('booking')
+        .where('email', isEqualTo: inputData().email)
+        .get()
+        .asStream()
+        .forEach((snapshot) {
+      snapshot.docs.forEach((doc) {
+        if (!doc.exists) {
+          return 'data null';
+        }
 
-                debugPrint(
-                    'create_date: ${bookingModel?.createDate?.toDate()}');
+        if (doc.get('create_date').toDate().isBefore(_end) &&
+            doc.get('create_date').toDate().isAfter(_start)) {
+          bookingModel = booking(doc);
+          view.updateSate();
+        }
+      });
+    });
 
-                return bookingModel.createDate.toDate().isAfter(_end) &&
-                        bookingModel.createDate.toDate().isBefore(_start)
-                    ? Text("Không có thông tin đặt lịch nào ....")
-                    : ItemRecentHisView(
-                        model: bookingModel,
-                        press: () async {
-                          await Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HisDetailsScreen(
-                              model: bookingModel,
-                            ),
-                          ));
-                        },
-                      );
-              });
-        });
+    return bookingModel;
+  }
+
+  nextDetails() async {
+    await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => HisDetailsScreen(
+        model: bookingModel,
+      ),
+    ));
   }
 
   void showAllHistory() async {
