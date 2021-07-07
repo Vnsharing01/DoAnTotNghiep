@@ -41,6 +41,8 @@ class HistoryPresenter extends Presenter {
       checkinDate: doc.data()['checkin_date'],
       price: doc.data()['price'],
       checkinTime: doc.data()['checkin_time'],
+      checkoutDate: doc.data()['checkout_date'],
+      checkoutTime: doc.data()['checkout_time'],
       imageUrl: doc.data()['image'],
     );
   }
