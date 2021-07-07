@@ -10,7 +10,6 @@ import 'package:yuru_camp/screen/history/history_screen.dart';
 import 'package:yuru_camp/screen/history_details/his_details_screen.dart';
 import 'package:yuru_camp/screen/home_screen/view/item_camp_list_home_view.dart';
 
-import 'view/item_recent_his_view.dart';
 
 class HomePresenter extends Presenter {
   HomePresenter(BuildContext context, Contract view) : super(context, view);

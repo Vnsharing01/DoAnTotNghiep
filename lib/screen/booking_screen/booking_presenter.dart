@@ -173,7 +173,6 @@ class BookingPresenter extends Presenter {
   }
 
   /// thêm booking mới
-  /// TODO: thêm 2 trường check out date-time
   void addBooking() {
     try {
       createBooking(
