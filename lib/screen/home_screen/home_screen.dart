@@ -6,6 +6,7 @@ import 'package:yuru_camp/screen/home_screen/home_presenter.dart';
 import 'package:yuru_camp/styles/color.dart';
 
 import 'view/home_title_item_view.dart';
+import 'view/item_recent_his_view.dart';
 
 final banner = [
   'assets/images/banrom_banner.jpg',
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
   @override
   void initState() {
     _presenter = HomePresenter(context, this);
-    
+
     super.initState();
   }
 
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
           child: Column(
             children: [
               Container(
-                // banner vể hoạt động cắm trại or sự kiện mới/ gần nhất của các khu cắm trại
+                // banner vể hoạt động cắm trại
                 width: double.infinity,
                 height: 240,
                 color: Colors.redAccent,
@@ -66,8 +67,10 @@ class _HomeScreenState extends State<HomeScreen> implements Contract {
                 width: double.infinity,
                 height: 164,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: _presenter.showrecentHisBooking(),
-                
+                child: ItemRecentHisView(
+                  model: _presenter.bookingModel,
+                  press: _presenter.nextDetails,
+                ),
               ),
               HomeTitleMoreItemView(
                 title: 'Một số khu cắm trại',
