@@ -24,8 +24,8 @@ class HisDetailsScreen extends StatelessWidget {
         title: Text(model.campName),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 15),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         child: Column(
           children: [
             Padding(
@@ -39,12 +39,24 @@ class HisDetailsScreen extends StatelessWidget {
                   ),
                 )),
             RowInfoItemView(
-              title: 'Ngày',
+              title: 'email',
+              text: model.email ?? '',
+            ),
+            RowInfoItemView(
+              title: 'Ngày đến',
               text: model.checkinDate ?? '',
             ),
             RowInfoItemView(
-              title: 'Giờ',
+              title: 'Giờ đến ',
               text: model.checkinTime ?? '',
+            ),
+            RowInfoItemView(
+              title: 'Ngày rời ',
+              text: model.checkoutDate ?? '',
+            ),
+            RowInfoItemView(
+              title: 'Giờ rời ',
+              text: model.checkoutTime ?? '',
             ),
             RowInfoItemView(
               title: 'Lưu trú',

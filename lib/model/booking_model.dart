@@ -12,7 +12,9 @@ class BookingModel {
     this.stay,
     this.checkinDate,
     this.checkinTime,
-    this.imageUrl, 
+    this.checkoutDate,
+    this.checkoutTime,
+    this.imageUrl,
   });
 
   final String email;
@@ -25,5 +27,7 @@ class BookingModel {
   final String stay;
   final String checkinDate;
   final String checkinTime;
+  final String checkoutDate;
+  final String checkoutTime;
   final String imageUrl;
 }

@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 
 import 'view/date_time_edt_item_view.dart';
 import 'view/edt_book_item_view.dart';
+import 'view/item_ckin_ckout_view.dart';
 import 'view/radio_item_view.dart';
 
 /// màn hình đặt lịch
@@ -97,38 +98,23 @@ class _BookingScreenState extends State<BookingScreen> implements Contract {
                 ),
               ],
             ),
-            Text(
-              'Thời gian check in dự kiến: ',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            // check in date
+            ItemCkInCkOutView(
+              title: 'Thời gian check in dự kiến: ',
+              pressDate: _presenter.ckInDate,
+              dateControl: _presenter.ckinDateControl,
+              pressTime: _presenter.ckInTime,
+              timeControl: _presenter.ckinTimeControl,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: DateTimeEdtItemView(
-                    press: _presenter.selectDate,
-                    title: 'Ngày',
-                    controller: _presenter.dateController,
-                    hint: 'dd/mm/yy',
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: DateTimeEdtItemView(
-                    press: _presenter.selectedTime,
-                    title: 'Giờ',
-                    controller: _presenter.timeController,
-                    hint: '8:30',
-                  ),
-                ),
-              ],
+            SizedBox(height: 16),
+            //check out date
+            ItemCkInCkOutView(
+              title: 'Thời gian check out dự kiến: ',
+              pressDate: _presenter.ckOutDate,
+              dateControl: _presenter.ckoutDateControl,
+              pressTime: _presenter.ckOutTime,
+              timeControl: _presenter.ckoutTimeControl,
             ),
-            
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30),
               child: Row(
@@ -158,3 +144,4 @@ class _BookingScreenState extends State<BookingScreen> implements Contract {
     setState(() {});
   }
 }
+

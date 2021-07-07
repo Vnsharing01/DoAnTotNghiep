@@ -20,8 +20,10 @@ class BookingPresenter extends Presenter {
   final nameController = TextEditingController();
   final personController = TextEditingController();
   final chilController = TextEditingController();
-  final dateController = TextEditingController();
-  final timeController = TextEditingController();
+  final ckinDateControl = TextEditingController();
+  final ckinTimeControl = TextEditingController();
+  final ckoutDateControl = TextEditingController();
+  final ckoutTimeControl = TextEditingController();
 
 // btn radio
   int selectRadio;
@@ -38,6 +40,21 @@ class BookingPresenter extends Presenter {
   int _price;
 
   CampsiteModel _campModel;
+
+  @override
+  void init() {
+    selectRadio = 0;
+    titlRadio = '';
+
+    _price = 0;
+    emailController.text = inputData().email;
+    personController.text = '1';
+    chilController.text = '0';
+    ckinDateControl.text = df.format(selectedDate);
+    ckinTimeControl.text =
+        formatDate(selectedDate, [hh, ':', nn, ' ', am]).toString();
+    super.init();
+  }
 
   CampsiteModel campData({CampsiteModel model}) {
     return _campModel = CampsiteModel(
@@ -58,28 +75,17 @@ class BookingPresenter extends Presenter {
     );
   }
 
-  @override
-  void init() {
-    selectRadio = 0;
-    titlRadio = '';
-
-    _price = 0;
-    personController.text = '1';
-    chilController.text = '0';
-    dateController.text = df.format(selectedDate);
-    timeController.text =
-        formatDate(selectedDate, [hh, ':', nn, ' ', am]).toString();
-    super.init();
-  }
-
   setSelectRadio(int val) {
     selectRadio = val;
     view.updateSate();
   }
 
   int setupdatePrice() {
-    _price = (int.parse(personController.text) * 100000) -
-        (int.parse(chilController.text) * 50000);
+    _price = _campModel.childPrice == 0
+        ? (int.parse(personController.text) * _campModel.personPrice)
+        : (int.parse(personController.text) * _campModel.personPrice) -
+            (int.parse(chilController.text) *
+                (_campModel.personPrice - _campModel.childPrice));
     return _price;
   }
 
@@ -95,7 +101,8 @@ class BookingPresenter extends Presenter {
   }
 
   /// show and tick date - BuildContext context
-  Future selectDate() async {
+  /// ck in date
+  Future ckInDate() async {
     final DateTime picker = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -105,13 +112,30 @@ class BookingPresenter extends Presenter {
     );
     if (picker != null) {
       selectedDate = picker;
-      dateController.text = df.format(selectedDate);
+      ckinDateControl.text = df.format(selectedDate);
+      view.updateSate();
+    }
+  }
+
+  /// ck out date
+  Future ckOutDate() async {
+    final DateTime picker = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      initialDatePickerMode: DatePickerMode.day,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2100),
+    );
+    if (picker != null) {
+      selectedDate = picker;
+      ckoutDateControl.text = df.format(selectedDate);
       view.updateSate();
     }
   }
 
   /// show and tick time - BuildContext context
-  Future selectedTime() async {
+  /// ck in time
+  Future ckInTime() async {
     final TimeOfDay picker = await showTimePicker(
       context: context,
       initialTime: selectTime,
@@ -121,8 +145,27 @@ class BookingPresenter extends Presenter {
       _hour = selectTime.hour.toString();
       _minute = selectTime.minute.toString();
       _time = _hour + ' : ' + _minute;
-      timeController.text = _time;
-      timeController.text = formatDate(
+      ckinTimeControl.text = _time;
+      ckinTimeControl.text = formatDate(
+          DateTime(2000, 1, 1, selectTime.hour, selectTime.minute),
+          [hh, ':', nn, ' ', am]).toString();
+      view.updateSate();
+    }
+  }
+
+  /// ck out time
+  Future ckOutTime() async {
+    final TimeOfDay picker = await showTimePicker(
+      context: context,
+      initialTime: selectTime,
+    );
+    if (picker != null) {
+      selectTime = picker;
+      _hour = selectTime.hour.toString();
+      _minute = selectTime.minute.toString();
+      _time = _hour + ' : ' + _minute;
+      ckoutTimeControl.text = _time;
+      ckoutTimeControl.text = formatDate(
           DateTime(2000, 1, 1, selectTime.hour, selectTime.minute),
           [hh, ':', nn, ' ', am]).toString();
       view.updateSate();
@@ -130,6 +173,7 @@ class BookingPresenter extends Presenter {
   }
 
   /// thêm booking mới
+  /// TODO: thêm 2 trường check out date-time
   void addBooking() {
     try {
       createBooking(
@@ -140,8 +184,10 @@ class BookingPresenter extends Presenter {
         stay: titlRadio,
         people: int.tryParse(personController.text),
         children: int.tryParse(chilController.text),
-        checkinDate: dateController.text,
-        checkinTime: timeController.text,
+        checkinDate: ckinDateControl.text,
+        checkinTime: ckinTimeControl.text,
+        checkoutDate: ckoutDateControl.text,
+        checkoutTime: ckoutTimeControl.text,
         createDate: Timestamp.fromDate(DateTime.now()),
         price: setupdatePrice(),
       );
@@ -163,6 +209,8 @@ class BookingPresenter extends Presenter {
     String stay,
     String checkinDate,
     String checkinTime,
+    String checkoutDate,
+    String checkoutTime,
     String imageUrl,
   }) async {
     await ref.doc().set({
@@ -176,6 +224,8 @@ class BookingPresenter extends Presenter {
       'stay': stay,
       'checkin_date': checkinDate,
       'checkin_time': checkinTime,
+      'checkout_date': checkoutDate,
+      'checkout_time': checkoutTime,
       'image': imageUrl,
     }).then((value) {
       print("booking Added");
