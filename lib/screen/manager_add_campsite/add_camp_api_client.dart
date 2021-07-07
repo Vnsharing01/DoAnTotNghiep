@@ -5,11 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:yuru_camp/model/user_model.dart';
 
 class MngAddCampApiCLient {
   final FirebaseAuth auth = FirebaseAuth.instance;
   User user;
-
+  CollectionReference userRef =
+      FirebaseFirestore.instance.collection('user');
   CollectionReference addCampsite =
       FirebaseFirestore.instance.collection('campsite');
   CollectionReference addCamMng =
@@ -69,11 +71,22 @@ class MngAddCampApiCLient {
     await addCamMng.doc(user.email).set({
       'email': user.email,
       'camp_name': campName,
-      'user_name': user.displayName,
+      'user_name': userModel().name,
     }).then((value) {
       print("User Mng successfuly");
     }).catchError(
       (error) => print("Failed to add mng: $error"),
     );
+  }
+
+  UserModel userModel() {
+    UserModel _user;
+    userRef.doc(user.email).get().then((doc) {
+       return _user = UserModel(
+      name: doc.data()['user_name'],
+      email: user.email
+    );
+    });
+    return _user;
   }
 }
