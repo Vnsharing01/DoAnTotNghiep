@@ -36,6 +36,8 @@ class HisByDatePresenter extends Presenter {
       stay: doc.data()['stay'],
       createDate: doc.data()['create_date'],
       checkinDate: doc.data()['checkin_date'],
+      checkoutDate: doc.data()['checkout_date'],
+      checkoutTime: doc.data()['checkout_time'],
       price: doc.data()['price'],
       checkinTime: doc.data()['checkin_time'],
       imageUrl: doc.data()['image'],
