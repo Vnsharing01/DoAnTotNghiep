@@ -6,15 +6,28 @@ import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/campsite_list/item_camp_list_view.dart';
 
 class CampAreaPresenter extends Presenter {
-  CampAreaPresenter(BuildContext context, Contract view) : super(context, view);
+  CampAreaPresenter(
+      BuildContext context, Contract view, this.searchTxt, this.allcampModel)
+      : super(context, view);
+  final String searchTxt;
+  final CampsiteModel allcampModel;
 
   CollectionReference ref = FirebaseFirestore.instance.collection('campsite');
 
-  CampsiteModel _campsiteModel;
+  CampsiteModel campsiteModel;
 
-  Widget listCamp(String area) {
+  @override
+  void init() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      campList();
+    });
+
+    super.init();
+  }
+
+  Widget campList() {
     return StreamBuilder(
-      stream: ref.where('area', isEqualTo: area).snapshots(),
+      stream: ref.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return Padding(
@@ -22,21 +35,28 @@ class CampAreaPresenter extends Presenter {
             child: Text("Loading..."),
           );
         }
-        if (snapshot.data.docs.isEmpty) {
-          return Center(
-            child: Text(
-              'Không có khu cắm trại nào trong khu vực này',
-              textAlign: TextAlign.center,
-            ),
-          );
-        }
+
         return ListView(
           padding: EdgeInsets.only(top: 10),
-          children: snapshot.data.docs.map((DocumentSnapshot document) {
-            _campsiteModel = campsite(document);
-
-            return ItemCampListView(
-              model: _campsiteModel,
+          children: snapshot.data.docs.map((doc) {
+            if (doc.exists) {
+              debugPrint('searchTxt $searchTxt ');
+              if (searchTxt.trim() == doc.get('area')) {
+                campsiteModel = campsite(doc);
+              } else if (searchTxt.trim() == doc.get('camp_name')) {
+                campsiteModel = campsite(doc);
+              } else {
+                campsiteModel = null;
+              }
+              return ItemCampListView(
+                model: campsiteModel,
+              );
+            }
+            return Center(
+              child: Text(
+                'Không có khu cắm trại nào...',
+                textAlign: TextAlign.center,
+              ),
             );
           }).toList(),
         );

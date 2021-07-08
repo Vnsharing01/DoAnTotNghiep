@@ -11,7 +11,7 @@ class CampsiteListPresenter extends Presenter {
   CampsiteListPresenter(BuildContext context, Contract view)
       : super(context, view);
 
-  final areaController = TextEditingController();
+  final searchController = TextEditingController();
 
   CollectionReference ref = FirebaseFirestore.instance.collection('campsite');
 
@@ -54,11 +54,11 @@ class CampsiteListPresenter extends Presenter {
     );
   }
 
-  searchArea(BuildContext context) {
+  search(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => CampAreaListScreen(
-          area: areaController.text,
+          searchText: searchController.text.trim(),
         ),
       ),
     );

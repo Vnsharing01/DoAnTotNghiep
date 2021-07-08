@@ -15,8 +15,8 @@ class ItemCampListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List img = model.images;
-    return GestureDetector(
+    List img = model?.images;
+    return model == null ? Container() : GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -55,14 +55,14 @@ class ItemCampListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      model.campName ?? '',
+                      model?.campName ?? '',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      model.intro ?? '',
+                      model?.intro ?? '',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -71,7 +71,7 @@ class ItemCampListView extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: RichText(
                         text: TextSpan(
-                          text: model.personPrice.toString(),
+                          text: model?.personPrice.toString(),
                           children: [
                             TextSpan(
                               text: ' vnd/ng',

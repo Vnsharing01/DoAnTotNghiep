@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:yuru_camp/base/contract.dart';
+import 'package:yuru_camp/model/campsite_model.dart';
 import 'package:yuru_camp/screen/campsite_list/camp_area_list/camp_area_list_presenter.dart';
 
 class CampAreaListScreen extends StatefulWidget {
   const CampAreaListScreen({
     Key key,
-    this.area,
+    this.searchText,
+    this.allcampModel,
   }) : super(key: key);
 
-  final String area;
+  final String searchText;
+  final CampsiteModel allcampModel;
 
   @override
   _CampAreaListScreenState createState() => _CampAreaListScreenState();
@@ -19,7 +22,12 @@ class _CampAreaListScreenState extends State<CampAreaListScreen>
   CampAreaPresenter _presenter;
   @override
   void initState() {
-    _presenter = CampAreaPresenter(context, this);
+    _presenter = CampAreaPresenter(
+      context,
+      this,
+      widget.searchText,
+      widget.allcampModel,
+    );
     super.initState();
   }
 
@@ -34,12 +42,12 @@ class _CampAreaListScreenState extends State<CampAreaListScreen>
           },
           child: Image.asset('assets/icons/ic_back_black.png'),
         ),
-        title: Text('Khu Vực ${widget.area}'),
+        title: Text('Khu Vực ${widget.searchText}'),
         centerTitle: true,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 10),
-        child: _presenter.listCamp(widget.area),
+        child:  _presenter.campList(),
       ),
     );
   }

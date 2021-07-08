@@ -46,7 +46,7 @@ class _CampsiteListScreenState extends State<CampsiteListScreen>
                     Expanded(
                       flex: 6,
                       child: TextFormField(
-                        controller: _presenter.areaController,
+                        controller: _presenter.searchController,
                         decoration: InputDecoration(
                           hintText: 'Hà Nội',
                           border: OutlineInputBorder(
@@ -61,7 +61,7 @@ class _CampsiteListScreenState extends State<CampsiteListScreen>
                       flex: 3,
                       child: BtnItemView(
                         press: () {
-                          _presenter.searchArea(context);
+                          _presenter.search(context);
                         },
                         text: 'Tìm',
                         color: colorPrimary,
