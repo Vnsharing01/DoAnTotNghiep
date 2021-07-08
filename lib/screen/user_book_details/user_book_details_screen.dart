@@ -63,15 +63,16 @@ class UserBookDetailsScreen extends StatelessWidget {
             ),
             RowInfoItemView(
               title: 'Ngày hẹn ',
-              text: model?.checkinDate ?? '-----',
+              text: '${model?.checkinDate} - ${model?.checkinTime}' ?? '-----',
             ),
             RowInfoItemView(
-              title: 'Thời gian ',
-              text: model?.checkinTime ?? '-----',
+              title: 'Ngày rời ',
+              text: '${model?.checkoutDate} - ${model?.checkoutTime}' ?? '-----',
             ),
+            
             RowInfoItemView(
               title: 'Giá vé ',
-              text: model?.price.toString() ?? '-----',
+              text: '${model?.price.toString()} VND' ?? '-----',
               textColor: Colors.red,
               weight: FontWeight.bold,
             ),

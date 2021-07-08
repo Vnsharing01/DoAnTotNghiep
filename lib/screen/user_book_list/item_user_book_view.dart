@@ -13,7 +13,7 @@ class ItemUserBookView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateFormat formatter = DateFormat('dd-MM-yyyy');
-    String dateTime = formatter.add_jm().format(model.createDate.toDate());
+    String dateTime = formatter.add_jm().format(model?.createDate?.toDate());
     return GestureDetector(
       onTap: () async {
         Navigator.of(context).push(
